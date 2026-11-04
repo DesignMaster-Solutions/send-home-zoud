@@ -1,0 +1,47 @@
+ARE destinations: ['Bangladesh', 'Egypt, Arab Rep.', 'India', 'Indonesia', 'Jordan', 'Nepal', 'Pakistan', 'Philippines', 'South Sudan', 'Sri Lanka', 'Sudan', 'Yemen, Rep.']
+
+== ARE->India latest 2025_1Q n=24 (periods 2016_2Q..2025_1Q); amounts cc1=735 AED cc2=1835
+ cc1 ALL: total 3.68% fee 2.96% fx 0.72% min 1.06 max 18.48 n=24
+   cc1 Bank: total 8.02% fee 6.43% fx 1.59% min 1.11 max 18.48 n=4
+   cc1 Money Transfer Operator: total 2.81% fee 2.27% fx 0.54% min 1.06 max 3.44 n=20
+ cc2 ALL: total 2.15% fee 1.44% fx 0.72% min 0.65 max 8.21 n=24
+   cc2 Bank: total 4.17% fee 2.57% fx 1.59% min 1.11 max 8.21 n=4
+   cc2 Money Transfer Operator: total 1.75% fee 1.21% fx 0.54% min 0.65 max 2.65 n=20
+
+== ARE->Pakistan latest 2025_1Q n=15 (periods 2016_2Q..2025_1Q); amounts cc1=735 AED cc2=1835
+ cc1 ALL: total 1.42% fee 1.08% fx 0.34% min -0.53 max 11.19 n=15
+   cc1 Bank: total 4.14% fee 2.86% fx 1.28% min 0.14 max 11.19 n=3
+   cc1 Money Transfer Operator: total 0.74% fee 0.63% fx 0.11% min -0.53 max 5.82 n=12
+ cc2 ALL: total 0.79% fee 0.45% fx 0.34% min -0.53 max 6.05 n=15
+   cc2 Bank: total 2.42% fee 1.14% fx 1.28% min 0.14 max 6.05 n=3
+   cc2 Money Transfer Operator: total 0.38% fee 0.28% fx 0.11% min -0.53 max 3.84 n=12
+
+== ARE->Philippines latest 2025_1Q n=19 (periods 2016_2Q..2025_1Q); amounts cc1=735 AED cc2=1835
+ cc1 ALL: total 3.04% fee 2.58% fx 0.46% min 1.03 max 4.68 n=19
+   cc1 Bank: total 1.03% fee 0.00% fx 1.03% min 1.03 max 1.03 n=1
+   cc1 Money Transfer Operator: total 3.15% fee 2.73% fx 0.42% min 1.06 max 4.68 n=18
+ cc2 ALL: total 1.50% fee 1.05% fx 0.46% min 0.57 max 2.48 n=19
+   cc2 Bank: total 1.03% fee 0.00% fx 1.03% min 1.03 max 1.03 n=1
+   cc2 Money Transfer Operator: total 1.53% fee 1.11% fx 0.42% min 0.57 max 2.48 n=18
+
+== ARE->Bangladesh latest 2025_1Q n=7 (periods 2016_2Q..2025_1Q); amounts cc1=735 AED cc2=1835
+ cc1 ALL: total 6.22% fee 2.26% fx 3.96% min 5.16 max 7.99 n=7
+   cc1 Money Transfer Operator: total 6.22% fee 2.26% fx 3.96% min 5.16 max 7.99 n=7
+ cc2 ALL: total 4.98% fee 1.02% fx 3.96% min 3.88 max 6.78 n=7
+   cc2 Money Transfer Operator: total 4.98% fee 1.02% fx 3.96% min 3.88 max 6.78 n=7
+
+== ARE->Egypt, Arab Rep. latest 2025_1Q n=14 (periods 2016_2Q..2025_1Q); amounts cc1=735 AED cc2=1835
+ cc1 ALL: total 3.12% fee 2.28% fx 0.85% min 1.05 max 4.46 n=14
+   cc1 Bank: total 1.05% fee 0.00% fx 1.05% min 1.05 max 1.05 n=1
+   cc1 Money Transfer Operator: total 3.28% fee 2.45% fx 0.83% min 2.22 max 4.46 n=13
+ cc2 ALL: total 1.76% fee 0.91% fx 0.85% min 1.05 max 2.74 n=14
+   cc2 Bank: total 1.05% fee 0.00% fx 1.05% min 1.05 max 1.05 n=1
+   cc2 Money Transfer Operator: total 1.81% fee 0.98% fx 0.83% min 1.27 max 2.74 n=13
+
+== ARE->Nepal latest 2025_1Q n=15 (periods 2016_2Q..2025_1Q); amounts cc1=735 AED cc2=1835
+ cc1 ALL: total 2.90% fee 2.49% fx 0.41% min 1.23 max 4.19 n=15
+   cc1 Bank: total 3.78% fee 3.57% fx 0.21% min 3.78 max 3.78 n=2
+   cc1 Money Transfer Operator: total 2.76% fee 2.32% fx 0.44% min 1.23 max 4.19 n=13
+ cc2 ALL: total 1.58% fee 1.18% fx 0.41% min 0.74 max 2.97 n=15
+   cc2 Bank: total 1.64% fee 1.43% fx 0.21% min 1.64 max 1.64 n=2
+   cc2 Money Transfer Operator: total 1.57% fee 1.14% fx 0.44% min 0.74 max 2.97 n=13

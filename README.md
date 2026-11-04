@@ -39,7 +39,19 @@ Twelve paydays make one run (about 8 minutes). The ending depends on what reache
 
 ## Facts and sources
 
-Every number shown in the game (corridor cost, fees, rates, rule of thumb) comes from a cited public source, listed here before it ships. Counters and apps in the game are fictional; no real company is named or rated.
+Every real-world number the game shows comes from a public source listed here. Counters and apps in the game are fictional; no real company is named or rated. The player's salary, bills, family needs and the counters' fees are game values, not statistics.
+
+| Shown in the game | Value | Source |
+|---|---|---|
+| Average total cost of sending AED 735 (about USD 200) from the UAE, Q1 2025 | India 3.68%, Pakistan 1.42%, Philippines 3.04% | World Bank, Remittance Prices Worldwide dataset 2011-2025 Q1, [rpw_dataset_2011_2025_q1.xlsx](https://remittanceprices.worldbank.org/sites/default/files/rpw_dataset_2011_2025_q1.xlsx) (simple mean of the providers surveyed; our parse in [docs/rpw-uae-q1-2025.txt](docs/rpw-uae-q1-2025.txt)) |
+| UAE banks cost more than money transfer operators (AED 735 to India: banks 8.02%, operators 2.81%) | used to set the game's bank fee | same dataset |
+| UN goal: remittance costs under 3% by 2030 | SDG target 10.c: "By 2030, reduce to less than 3 per cent the transaction costs of migrant remittances and eliminate remittance corridors with costs higher than 5 per cent." | [UN SDG indicator metadata 10.c.1](https://unstats.un.org/sdgs/metadata/files/Metadata-10-0c-01.pdf) |
+| Global average cost of sending USD 200: 6.36% (Q3 2025) | for the concept doc | [RPW Issue 54](https://remittanceprices.worldbank.org/sites/default/files/2026-04/RPW_main_report_and_annex_Q325.pdf) |
+| Personal remittances paid from the UAE: USD 62.1 billion in 2025 | for the concept doc | [World Bank WDI, BM.TRF.PWKR.CD.DT](https://data.worldbank.org/indicator/BM.TRF.PWKR.CD.DT?locations=AE) |
+| Mid-market rate, 1 AED = 25.82 INR, 75.36 PKR, 17.30 PHP | fixed for the game on 04/11/2026 | [open.er-api.com/v6/latest/AED](https://open.er-api.com/v6/latest/AED) (aggregator, not a central bank) |
+| The counters close for Friday prayer at 13:15 | the street clock | UAE unified Friday prayer time since January 2022 (to be linked to the u.ae page before submission) |
+
+Game rules that are not facts, and say so in the code (`econ.js`): a 1 in 5 chance that an informal transfer never arrives, a 10% charge on a salary advance, 15% of money left idle at home going on everyday things, the salary paid a month late once a year.
 
 ## License
 

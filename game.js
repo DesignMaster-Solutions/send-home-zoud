@@ -184,7 +184,7 @@ function sendHere() {
     <div class="total"><span>${T('rTotal')}</span><span>${money(r.cost)} (${pct.toFixed(1)}%)</span></div>
     <div class="gets"><span>${T('rGets')}</span><span>${I.home(r.received, corridor)}</span></div>
     <p>${diff > 1 ? T('rBest', { x: I.home(diff, corridor) }) + ` (${T('c_' + best.kind)})` : T('rWasBest')}</p>
-    <p class="muted" style="color:#556">${T('rGoal')}</p></div>
+    <p class="muted" style="color:#556">${T('rGoal')} ${T('rReal', { home: I.CORRIDORS[corridor][lang], p: I.CORRIDORS[corridor].rpw })}</p></div>
     <div class="actions" style="justify-content:center"><button class="primary" data-act="news">${T('next')}</button></div>`;
   SND.stamp(); setTimeout(() => (pct < 3 ? SND.good() : SND.bad()), 250);
 }

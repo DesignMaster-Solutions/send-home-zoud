@@ -12,9 +12,10 @@ export function pickLang(search, stored, deviceLang = '') {
 
 // Home corridors. Mid-market rates are fixed for the game; date and source in README "Facts and sources".
 export const CORRIDORS = {
-  india: { cur: 'INR', mid: 25.06, en: 'India', ar: 'الهند', sym: '₹' },
-  pakistan: { cur: 'PKR', mid: 76.53, en: 'Pakistan', ar: 'باكستان', sym: 'Rs ' },
-  philippines: { cur: 'PHP', mid: 16.18, en: 'the Philippines', ar: 'الفلبين', sym: '₱' },
+  // mid: open.er-api.com, 04/11/2026. rpw: World Bank Remittance Prices Worldwide, Q1 2025, average total cost of sending AED 735.
+  india: { cur: 'INR', mid: 25.82, rpw: 3.68, en: 'India', ar: 'الهند', sym: '₹' },
+  pakistan: { cur: 'PKR', mid: 75.36, rpw: 1.42, en: 'Pakistan', ar: 'باكستان', sym: 'Rs ' },
+  philippines: { cur: 'PHP', mid: 17.30, rpw: 3.04, en: 'the Philippines', ar: 'الفلبين', sym: '₱' },
 };
 
 export const STR = {
@@ -98,6 +99,8 @@ export const STR = {
   rBest: ['Best on the street today: {x} more', 'أفضل عرض في الشارع اليوم: {x} أكثر'],
   rWasBest: ['That was the best deal on the street today.', 'كان هذا أفضل عرض في الشارع اليوم.'],
   rGoal: ['The UN goal for 2030: under 3%.', 'هدف الأمم المتحدة لعام 2030: أقل من 3%.'],
+  rReal: ['Real average from the UAE to {home} for AED 735: {p}% (World Bank, early 2025).',
+    'المتوسط الحقيقي من الإمارات إلى {home} لمبلغ 735 درهماً: {p}% (البنك الدولي، مطلع 2025).'],
   rInformalOk: ['No receipt. This time it arrived.', 'بلا إيصال. هذه المرة وصل المال.'],
   rInformalLost: ['The number does not answer any more. {x} never arrived, and there is no receipt to claim it.',
     'الرقم لم يعد يجيب. لم يصل {x}، ولا يوجد إيصال للمطالبة به.'],
