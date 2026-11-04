@@ -27,4 +27,10 @@ browse $D wait --text "News from home" 10 >/dev/null || fail "news"
 browse $D open "${U}?seed=7&lang=ar&v=$RANDOM" >/dev/null
 browse $D wait --text "ابدأ السنة" 20 >/dev/null || fail "arabic title"
 [[ $(browse $D js 'return document.documentElement.dir') == rtl ]] || fail "rtl"
+# A whole year, played by ?autoplay at 12x: every payday, street and receipt renders and the year ends.
+browse $D open "${U}?seed=7&lang=en&autoplay&fast&a11y=calm&v=$RANDOM" >/dev/null
+browse $D wait --text "The year is over" 90 >/dev/null || fail "autoplay year did not end: $(browse $D text | head -5)"
+E=$(browse $D text .stats)
+[[ $E == *"Needs paid at home"* ]] || fail "end stats: $E"
+print "end: $(browse $D text .ending)"
 print "E2E OK on $D"
