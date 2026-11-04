@@ -1,7 +1,7 @@
 // Send Home: the screens. The money lives in econ.js, the words in i18n.js, the settings in a11y.js.
-import * as E from './econ.js';
-import * as A from './a11y.js';
-import * as I from './i18n.js';
+import * as E from './econ.js?v=5';
+import * as A from './a11y.js?v=5';
+import * as I from './i18n.js?v=5';
 
 const params = new URLSearchParams(location.search);
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -253,5 +253,38 @@ function rerender() {
   if (screen === 'end') return end();
 }
 
+// ---------- ?autoplay: the game plays itself (attract mode, the gameplay video, the full-year e2e) ----------
+// It plays like a careful player: sends what the month and any due need require, compares quotes, keeps the rest.
+// Payday 1 shows the loud ZERO FEE quote first; ?autoplay=risky also takes the phone offer once (payday 5).
+const AUTO = params.has('autoplay'), PACE = params.has('fast') ? 0.08 : 1;
+function autoStep() {
+  if (!AUTO) return;
+  const later = (ms, f) => setTimeout(f, ms * PACE);
+  const click = sel => { const b = app.querySelector(sel); if (b && !b.disabled) b.click(); };
+  const sc = screen, p = run && run.p;
+  if (sc === 'title') return later(2500, () => click('[data-act=start]'));
+  if (sc === 'payday') {
+    const due = E.NEEDS.filter(n => n.due === run.p).reduce((t, n) => t + n.aed, 0);
+    const want = Math.min(run.reserve, Math.ceil((Math.max(0, E.FAMILY_MONTHLY + due - run.pot) * 1.04 + 30) / 50) * 50);
+    return later(1800, () => {
+      const r = app.querySelector('#amt'); r.value = want; r.dispatchEvent(new Event('input'));
+      later(1800, () => click(want > 0 ? '[data-act=street]' : '[data-act=skip]'));
+    });
+  }
+  if (sc === 'street' && !st.quote && !st.autoAsked) {
+    st.autoAsked = true;
+    const open = st.counters.filter(c => S.calm || E.isOpen({ queue: effQueue(c) }, st.minutes - 4));
+    const best = open.filter(c => !c.informal).reduce((a, c) => (E.receive(st.amount, c, mid) > E.receive(st.amount, a, mid) ? c : a));
+    const pick = params.get('autoplay') === 'risky' && p === 5 ? 'informal' : best.kind;
+    if (p === 1) return later(2200, () => { ask('zero'); later(2200, () => { click('[data-act=back]'); later(1200, () => { ask(pick); later(2000, () => click('[data-act=send]')); }); }); });
+    return later(2200, () => { ask(pick); later(2000, () => click('[data-act=send]')); });
+  }
+  if (sc === 'receipt') return later(3800, () => click('[data-act=news]'));
+  if (sc === 'news') return later(2600, () => click('[data-act=next]'));
+}
+const render = new MutationObserver(() => { if (screen !== autoStep.last) { autoStep.last = screen; autoStep(); } });
+if (AUTO) render.observe(app, { childList: true });
+
 applySettings();
 title();
+
