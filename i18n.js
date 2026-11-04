@@ -61,7 +61,7 @@ export const STR = {
   sendNow: ['Send home now', 'أرسل الآن'],
   keep: ['Keep as cushion', 'احتفظ احتياطياً'],
   toStreet: ['Go to the street', 'اذهب إلى الشارع'],
-  keepAll: ['Send nothing this payday', 'لا ترسل شيئاً هذا الراتب'],
+  keepAll: ['Keep it all', 'احتفظ بالكل'],
   fair: ['Mid-market rate today: 1 AED = {r} {cur}', 'سعر السوق المتوسط اليوم: 1 درهم = {r} {cur}'],
   fairHint: ['Their rate below this is a hidden cost.', 'كل سعر أقل من هذا تكلفة مخفية.'],
   clock: ['Counters close at 13:15', 'تُغلق المحلات عند 13:15'],

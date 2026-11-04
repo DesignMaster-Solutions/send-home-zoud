@@ -8,6 +8,8 @@ browse $D open "${U}?seed=7&lang=en&v=$RANDOM" >/dev/null
 browse $D wait --text "SEND HOME" 20 >/dev/null || fail "title"
 browse $D click --text "Start the year" >/dev/null
 browse $D wait --text "Payday 1 of 12" 10 >/dev/null || fail "payday"
+W=$(browse $D js 'return Math.max(...[...document.querySelectorAll(".actions")].map(a => a.scrollWidth - a.clientWidth))')
+[[ $W -le 0 ]] || fail "payday action row overflows by ${W}px"
 browse $D click --text "Go to the street" >/dev/null
 browse $D wait --text "Mid-market rate today" 10 >/dev/null || fail "street"
 [[ $(browse $D js 'return document.querySelectorAll(".counter").length') -ge 4 ]] || fail "counters"
