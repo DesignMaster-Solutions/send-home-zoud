@@ -24,7 +24,7 @@ Twelve paydays make one run (about 8 minutes). The ending depends on what reache
 | Prototype & Gameplay | 25 | one clear loop (split, go to the street, pick, read the receipt), timer pressure from the queue, 12 paydays with rising stakes, more than one good ending |
 | Financial Literacy Integration | 25 | the lesson is the mechanic: total cost = fee + exchange-rate margin, read "they receive", batching, emergency fund, licensed channels |
 | Educational Impact | 15 | a receipt at the end of each transfer and a year summary in money that reached home vs. money lost to costs |
-| Creativity & Innovation | 15 | none of the 30 entries in the jam on 04/11/2026 is about remittances; the board is a street of counters, not a spreadsheet |
+| Creativity & Innovation | 15 | of the 30 entries in the jam on 04/11/2026, five mention money sent home, as a budget line or an event (My DUNYA, Smart Phone: Money or Likes?, Rainy Day, ZARF Twelve Paydays, Future Me); none is built around the transfer itself: choosing the channel, fee plus exchange-rate margin against the mid-market rate, the receipt, batching, the informal channel. They treat money for home as a budget line; Send Home makes the transfer the game, and the board is a street of counters, not a spreadsheet |
 | Development & Commercial Potential | 20 | concept doc and budget; path to partners that publish real corridor costs |
 | Localization bonus (UAE / Arab region) | up to 5 | English and Arabic (RTL), AED, corridors that matter to people living in the UAE |
 | Inclusivity & Accessibility bonus | up to 5 | large text, high contrast, calm speed (no timer), plain words, sound off, pause |
