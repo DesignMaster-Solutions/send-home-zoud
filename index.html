@@ -13,7 +13,7 @@
   body{margin:0;min-height:100vh;background:var(--night);color:var(--sand);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Arabic","Geeza Pro",sans-serif;line-height:1.45}
   body.large{--fs:21px}
   body.contrast{--night:#000;--street:#000;--sand:#fff;--muted:#fff;--paper:#fff;--teal:#5ff2e0;--gold:#ffd23f}
-  #app{max-width:980px;margin:0 auto;padding:14px 14px 40px}
+  #app{max-width:980px;margin:0 auto;padding:14px 14px 40px;overflow-x:hidden}
   h1{font-size:2.2rem;letter-spacing:.06em;margin:.3em 0 .1em;color:var(--gold)}
   h2{font-size:1.3rem;margin:.2em 0 .5em}
   p{margin:.4em 0}
@@ -44,6 +44,7 @@
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
   .counter{background:#20414f;color:var(--sand);text-align:start;padding:0;overflow:hidden;display:flex;flex-direction:column;min-height:150px;border:2px solid transparent}
   body.contrast .counter{background:#000;border-color:#fff}
+  .counter{white-space:normal}
   .counter .sign{padding:8px 10px;font-weight:700;font-size:.95rem;color:var(--ink);background:var(--teal)}
   .counter[data-kind=bank] .sign{background:#cfd8de} .counter[data-kind=saffron] .sign{background:#f2b134}
   .counter[data-kind=dhow] .sign{background:#7fb2f0} .counter[data-kind=zero] .sign{background:#ff4f9a;color:#fff}
@@ -62,6 +63,8 @@
   .sheet .link{color:var(--ink)}
   .receipt{background:var(--paper);color:var(--ink);font-family:ui-monospace,Menlo,Consolas,monospace;padding:16px;border-radius:4px;max-width:460px;margin:12px auto;position:relative;box-shadow:0 6px 20px #0006}
   .receipt div{display:flex;justify-content:space-between;gap:10px;padding:2px 0}
+  .receipt div span:last-child{white-space:nowrap;text-align:end}
+  .receipt>p:first-of-type{padding-inline-end:64px}
   .receipt .total{border-top:1px dashed #889;margin-top:6px;padding-top:6px;font-weight:700}
   .receipt .gets{font-size:1.3rem;font-weight:800}
   .stamp{position:absolute;inset-inline-end:14px;top:10px;border:3px solid var(--red);color:var(--red);padding:2px 8px;font-weight:800;transform:rotate(-12deg);animation:stamp .35s ease-out}
