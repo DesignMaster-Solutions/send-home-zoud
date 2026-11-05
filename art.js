@@ -73,7 +73,7 @@ const PICS = {
     <path d="M132 30l14 -14 6 6 -14 14z" fill="#f2b134"/><path d="M76 46h18M76 54h18M106 46h18M106 54h18" stroke="#e8f1fc" stroke-width="2"/>`,
   roof: `<path d="M62 56l38 -30 38 30z" fill="#e4572e"/><path d="M60 57l40 -32 40 32" stroke="#7a4a1c" stroke-width="4" fill="none"/>
     <rect x="70" y="56" width="60" height="30" fill="#f4ead8"/><rect x="92" y="66" width="16" height="20" fill="#7a4a1c"/>
-    ${[40, 52, 64].map(x => `<path d="M${x} 14l-4 10M${x + 110} 14l-4 10" stroke="#7fb2f0" stroke-width="2"/>`).join('')}`,
+    ${[40, 52, 64].map(x => `<path d="M${x} 14l-4 10M${x + 92} 14l-4 10" stroke="#7fb2f0" stroke-width="2"/>`).join('')}`,
   hospital: `<path d="M100 82s-30 -18 -30 -38a15 15 0 0 1 30 -6a15 15 0 0 1 30 6c0 20 -30 38 -30 38z" fill="#e4572e"/>
     <path d="M100 44v20M90 54h20" stroke="#fff" stroke-width="5"/>`,
   // Diwali: a lit clay diya lamp
