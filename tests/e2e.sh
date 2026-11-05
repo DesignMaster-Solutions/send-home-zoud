@@ -24,7 +24,7 @@ W=$(browse $D js 'return document.documentElement.scrollWidth - innerWidth')
 [[ $W -le 0 ]] || fail "page wider than the screen by ${W}px"
 browse $D click --text "Next" >/dev/null
 browse $D wait --text "News from home" 10 >/dev/null || fail "news"
-[[ $(browse $D text .flight 2>/dev/null; browse $D js 'return document.querySelector(".flight .arrived")?.textContent || ""') == *"₹"* ]] || fail "no coin flight with the amount that arrived"
+[[ $(browse $D js 'return document.querySelector(".flight .arrived")?.textContent || ""') == *"₹"* ]] || fail "no coin flight with the amount that arrived"
 # Arabic: the same street reads right to left
 browse $D open "${U}?seed=7&lang=ar&v=$RANDOM" >/dev/null
 browse $D wait --text "ابدأ السنة" 20 >/dev/null || fail "arabic title"

@@ -1,8 +1,8 @@
 // Send Home: the screens. The money lives in econ.js, the words in i18n.js, the settings in a11y.js.
-import * as E from './econ.js?v=8';
-import * as A from './a11y.js?v=8';
-import * as I from './i18n.js?v=8';
-import * as Art from './art.js?v=8';
+import * as E from './econ.js?v=9';
+import * as A from './a11y.js?v=9';
+import * as I from './i18n.js?v=9';
+import * as Art from './art.js?v=9';
 
 const params = new URLSearchParams(location.search);
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }

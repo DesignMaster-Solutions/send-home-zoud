@@ -37,7 +37,7 @@ Send Home is a short strategy game about the money that leaves the UAE every pay
 
 | | | |
 |-----------------------|-----------------------|-----------------------|
-| ![Payday: salary, bills, a message from home and the slider](shots/m1-payday-redmi.png) | ![The street: four counters with fee, rate and queue, and the clock](shots/m1-street-redmi.png) | ![Receipt: fee, hidden margin, total cost and what the family receives](shots/m1-receipt-redmi.png) |
+| ![Payday: salary, bills, a message from home and the slider](shots/m2-payday-redmi.png) | ![The street: four counters with fee, rate and queue, and the clock](shots/m2-street-redmi.png) | ![Receipt: fee, hidden margin, total cost and what the family receives](shots/m2-receipt-redmi.png) |
 | Payday: split the salary | The street | The receipt |
 
 **Decisions and progress.** Which counter, and is its queue worth the minutes? Send now or wait and pay the fee once? Send everything or keep a cushion for the month the salary is late? The year builds: the roof costs more than the school fees, the hospital bill comes with one payday of warning, and the app and the phone offer join the street. Four endings: "Home is safe, and so are you", "Everything reached home", "You kept standing" and "A hard year". The year closes with a summary in money: what reached home, what was lost to fees and rates, what was lost with no receipt, what salary advances cost, and the needs that were paid.
@@ -90,7 +90,7 @@ Each lesson maps to something a person can do on the next payday: ask for "how m
 
 | | | |
 |-----------------------|-----------------------|-----------------------|
-| ![Title card: home country, language and five accessibility settings](shots/m1-bp-360.png) | ![Year summary: what reached home and what was lost](shots/m1-end-redmi.png) | ![The street in the Arabic edition, right to left](shots/m1-street-ar-redmi.png) |
+| ![Title card: home country, language and five accessibility settings](shots/m2-title-redmi.png) | ![Year summary: what reached home and what was lost](shots/m2-end-redmi.png) | ![The street in the Arabic edition, right to left](shots/m2-street-ar-redmi.png) |
 | Title: home, language, settings | The year summary | The street in Arabic, right to left |
 
 **Art direction.** A street at the end of a Friday morning, seen as a board of counter cards. Each counter has its own sign colour and the loud kiosk shouts in pink. The receipt is printed on paper, in a typewriter face, with a stamp that shows the cost against the UN goal of 3%. Everything is drawn in code, with no image files, so the game loads on a weak phone connection.

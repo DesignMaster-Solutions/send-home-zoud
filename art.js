@@ -61,7 +61,7 @@ export function flight(lost, label = '') {
   const [end, d] = lost ? ['360 136', 'M-240 -70 Q-120 -150 0 0'] : ['550 90', 'M-430 -24 Q-210 -120 0 0'];
   return svg('0 0 640 150', `<rect width="640" height="150" rx="14" fill="#17303d"/>${towers(14, 150)}
     <path d="M120 66 Q340 -30 550 90" fill="none" stroke="#f4ead8" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round" opacity=".6"/>
-    ${house(520, 104, !lost)}${lost ? '' : `<text x="550" y="70" text-anchor="middle" class="arrived">${label}</text>`}<g transform="translate(${end})">${coin(d, 'fly')}</g>`, 'flight');
+    ${house(520, 104, !lost)}${lost ? '' : `<text x="600" y="56" text-anchor="end" class="arrived">${label}</text>`}<g transform="translate(${end})">${coin(d, 'fly')}</g>`, 'flight');
 }
 
 // Values for a count-up that eases out and lands exactly on the final number.
