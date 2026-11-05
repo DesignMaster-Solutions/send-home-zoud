@@ -12,10 +12,10 @@ export const APP_SETUP = 15; // the first time, the app needs 15 minutes to chec
 // Fictional counters (no real company). Margin = how far their rate sits below the mid-market rate.
 const KINDS = [
   { kind: 'bank', fee: 50, margin: [0.008, 0.016], queue: [6, 12] }, // ~8% on AED 735, like UAE banks in RPW Q1 2025
-  { kind: 'saffron', fee: 15, margin: [0.003, 0.009], queue: [14, 24] },
-  { kind: 'dhow', fee: 10, margin: [0.010, 0.020], queue: [4, 10] },
+  { kind: 'saffron', fee: 15, margin: [0.002, 0.008], queue: [14, 24] },
+  { kind: 'dhow', fee: 10, margin: [0.006, 0.016], queue: [4, 10] },
   { kind: 'zero', fee: 0, margin: [0.028, 0.040], queue: [0, 0], loud: true },
-  { kind: 'app', fee: 9, margin: [0.002, 0.012], queue: [0, 0], from: 4 },
+  { kind: 'app', fee: 9, margin: [0.005, 0.018], queue: [0, 0], from: 4 }, // ranges tuned so no counter wins most Fridays (tests/econ.test.mjs)
   { kind: 'informal', fee: 0, margin: [-0.006, -0.003], queue: [0, 0], from: 2, informal: true },
 ];
 

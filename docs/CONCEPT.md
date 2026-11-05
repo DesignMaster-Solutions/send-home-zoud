@@ -29,7 +29,7 @@ Send Home is a short strategy game about the money that leaves the UAE every pay
 **The loop.** Each payday has four short steps.
 
 1. **Payday.** AED 4,000 lands and AED 2,100 of rent share, food and transport go first. A message from home says what the family lives on each month and what is coming: school fees by payday 3, the roof before the rains by payday 6, a cousin's wedding gift by payday 9, a father's hospital bill by payday 11. One slider splits the money you hold between "Send home now" and "Keep as cushion".
-2. **The street.** You arrive at 12:15 and the counters close for Friday prayer at 12:45. Up to six fictional counters show their fee, their rate and their queue: a bank, two exchange houses, a loud kiosk shouting ZERO FEE!, an app from payday 4 that needs a 15-minute ID check the first time, and from payday 2 a friend of a friend on the phone offering cash at a better rate with no receipt. Every day one counter waives its fee and quietly worsens its rate. The cheapest counter usually has the longest queue, and a counter whose queue is longer than the time left closes in front of you. Asking for a quote costs 2 minutes and answers the only question that matters: "For AED 1,000, your family receives...".
+2. **The street.** You arrive at 12:15 and the counters close for Friday prayer at 12:45. The first Friday has no clock, so a new player learns the board before the queue counts. Up to six fictional counters show their fee, their rate and their queue: a bank, two exchange houses, a loud kiosk shouting ZERO FEE!, an app from payday 4 that needs a 15-minute ID check the first time, and from payday 2 a friend of a friend on the phone offering cash at a better rate with no receipt. Every day one counter waives its fee and quietly worsens its rate. The cheapest counter usually has the longest queue, and a counter whose queue is longer than the time left closes in front of you. Asking for a quote costs 2 minutes and answers the only question that matters: "For AED 1,000, your family receives...".
 3. **The receipt.** What you paid, the fee, their rate against the mid-market rate, the cost hidden in the rate, the total cost in dirhams and in percent, what your family receives, and how much more the best counter on the street would have delivered that day. Next to it, the UN goal for 2030 (under 3%) and the real average from the UAE to your family's country.
 4. **News from home.** The need that was due is paid ("They sent a photo") or missed, and the family either had what it needed this month or went short.
 
@@ -52,7 +52,7 @@ There is no lesson screen. Three lines before the year starts, and after that ev
 |---------------|-----------------------------|------------------------------------|
 | Total cost = fee + exchange-rate margin | Every counter shows a fee and a rate, and the receipt splits the cost into both | A AED 15 fee at a fair rate costs less than a "free" transfer at a bad one |
 | The mid-market rate is the yardstick | The street shows today's mid-market rate: "Their rate below this is a hidden cost" | The player learns to compare rates, not fees |
-| "Zero fee" is a sales line | The loudest kiosk charges no fee and gives the worst rate, and the daily fee waiver comes with a worse rate | Always choosing ZERO FEE costs about 2.5 times more over the year (table below) |
+| "Zero fee" is a sales line | The loudest kiosk charges no fee and gives the worst rate, and the daily fee waiver comes with a worse rate | Always choosing ZERO FEE costs about 2.3 times more over the year (table below) |
 | Fixed fees punish small transfers | A fee is charged on every transfer | With a AED 15 fee and a 0.5% margin, sending AED 300 costs 5.5% and sending AED 1,500 costs 1.5% |
 | Emergency fund | Trouble here is paid from the cushion, or borrowed at a 10% charge | Sending everything feels generous until the month the salary is late |
 | Licensed channels and receipts | The phone offer has a better rate, no receipt, and a 1 in 5 chance that the money never arrives (a game rule, not a statistic) | "The number does not answer any more", and there is nothing to claim |
@@ -63,14 +63,14 @@ There is no lesson screen. Three lines before the year starts, and after that ev
 
 | **Way of playing** | **Reached home** | **Lost to fees and rates** | **Lost with no receipt** | **Cushion at the end** | **Months the family went short** | **Most common ending** |
 |-----------------------------|------:|------:|------:|------:|------:|---------------------|
-| Read the board, send what home needs, keep the rest | 18,350 | 259 | 0 | 2,508 | 1.0 | Home is safe, and so are you (97%) |
+| Read the board, send what home needs, keep the rest | 18,341 | 281 | 0 | 2,496 | 1.0 | Home is safe, and so are you (93%) |
 | Same plan, always at the ZERO FEE kiosk | 18,236 | 644 | 0 | 2,225 | 1.0 | Everything reached home (100%) |
-| Send everything, every payday | 20,748 | 282 | 0 | 0 | 1.9 | You kept standing (79%) |
-| Send all but a small AED 700 cushion | 20,127 | 273 | 0 | 700 | 2.6 | You kept standing (100%) |
-| Same plan as the first, but the phone offer when it is there | 15,140 | -41 | 3,436 | 2,587 | 3.0 | You kept standing (72%) |
-| Always hold AED 2,500 back | 18,507 | 241 | 0 | 2,500 | 4.0 | You kept standing (100%) |
+| Send everything, every payday | 20,725 | 305 | 0 | 0 | 2.0 | You kept standing (81%) |
+| Send all but a small AED 700 cushion | 20,102 | 298 | 0 | 700 | 2.6 | You kept standing (100%) |
+| Same plan as the first, but the phone offer when it is there | 15,141 | -43 | 3,436 | 2,589 | 3.0 | You kept standing (72%) |
+| Always hold AED 2,500 back | 18,478 | 270 | 0 | 2,500 | 4.0 | You kept standing (100%) |
 
-Reading the board costs 1.4% of what was sent over the year, under the UN goal of 3%. Always choosing the ZERO FEE kiosk costs 3.4%, over it, and never leaves enough for the best ending. Sending everything delivers the most money, yet leaves the family short about twice a year, in the months when trouble here takes the money first, and pays the most for salary advances. The phone offer looks cheaper on every single transfer and still loses money in 88% of the years.
+Reading the board costs 1.5% of what was sent over the year, under the UN goal of 3%. Always choosing the ZERO FEE kiosk costs 3.4%, over it, and never leaves enough for the best ending. Sending everything delivers the most money, yet leaves the family short about twice a year, in the months when trouble here takes the money first, and pays the most for salary advances. The phone offer looks cheaper on every single transfer and still loses money in 88% of the years.
 
 ### What we hope players understand after playing
 

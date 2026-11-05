@@ -111,3 +111,19 @@ test('every ending can happen, and the careful player usually does well', () => 
   const thriving = st => [...Array(200)].filter((_, i) => E.simulate(st, i + 1).ending === 'thriving').length;
   assert.ok(thriving('zero') < thriving('best') / 2, 'the loud sign rarely leaves enough for a cushion');
 });
+
+// game-balance (04/11 playtest): once the app is out, the street must still ask for a reading every Friday.
+test('no counter is the best deal on more than 55% of Fridays from payday 5', () => {
+  for (const amt of [1000, 2500]) {
+    const win = {}; let n = 0;
+    for (let seed = 1; seed <= 300; seed++) {
+      const r = E.rng(seed);
+      for (let p = 5; p <= E.PAYDAYS; p++, n++) {
+        const st = E.street(p, r).filter(c => !c.informal && E.isOpen(c, E.STREET_MINUTES - 10));
+        const b = st.reduce((a, c) => (E.receive(amt, c, 1) > E.receive(amt, a, 1) ? c : a));
+        win[b.kind] = (win[b.kind] || 0) + 1;
+      }
+    }
+    for (const [k, v] of Object.entries(win)) assert.ok(v / n <= 0.55, `AED ${amt}: ${k} best on ${Math.round(100 * v / n)}% of Fridays`);
+  }
+});
