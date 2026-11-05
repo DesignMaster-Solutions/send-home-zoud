@@ -6,11 +6,12 @@
   body{margin:0;background:#0f1d27}
   #c{overflow:hidden;background:#17303d;display:flex;flex-direction:column;justify-content:space-between}
   #c svg{display:block;width:100%;height:auto}
+  .house.lit .win{fill:#f2b134}
   #t{padding:0 6% 6%;font-family:Baloo,sans-serif;color:#f2b134}
   h1{margin:0;font-size:calc(var(--w) * .13px);line-height:.9;text-shadow:0 4px 0 #7a4a1c}
-  p{margin:.3em 0 0;color:#f4ead8;font-size:calc(var(--w) * .036px);font-weight:600}
+  p{margin:.3em 0 0;line-height:1.2;color:#f4ead8;font-size:calc(var(--w) * .033px);font-weight:600}
 </style>
-<div id="c"><div id="t"><h1>SEND HOME</h1><p>Read the fee and the rate. Get it there before Friday prayer.</p></div></div>
+<div id="c"><div id="t"><h1>SEND HOME</h1><p>Read the fee and the rate. Get it home before Friday prayer.</p></div></div>
 <script type="module">
   import { scene } from '../art.js';
   const q = new URLSearchParams(location.search), w = +q.get('w') || 630, h = +q.get('h') || 500;
