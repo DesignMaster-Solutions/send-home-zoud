@@ -109,6 +109,8 @@ export const STR = {
   needMet: ['{need}: paid. They sent a photo.', '{need}: دُفعت. أرسلوا صورة.'],
   needMissed: ['{need}: not enough arrived in time.', '{need}: لم يصل ما يكفي في الوقت.'],
   short: ['The family went short this month by {x}.', 'نقص على العائلة هذا الشهر {x}.'],
+  shortCost: ['The family went short this month by {x}: the fee and the rate took that. Next time send a little more than they need.',
+    'نقص على العائلة هذا الشهر {x}: هذا ما أخذته الرسوم والسعر. في المرة القادمة أرسل أكثر قليلاً مما يحتاجون.'],
   fine: ['The family had what they needed this month.', 'كان لدى العائلة ما تحتاجه هذا الشهر.'],
   endTitle: ['The year is over', 'انتهت السنة'],
   end_thriving: ['Home is safe, and so are you', 'البيت بأمان، وأنت كذلك'],

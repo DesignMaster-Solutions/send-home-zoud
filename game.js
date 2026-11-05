@@ -1,8 +1,8 @@
 // Send Home: the screens. The money lives in econ.js, the words in i18n.js, the settings in a11y.js.
-import * as E from './econ.js?v=9';
-import * as A from './a11y.js?v=9';
-import * as I from './i18n.js?v=9';
-import * as Art from './art.js?v=9';
+import * as E from './econ.js?v=10';
+import * as A from './a11y.js?v=10';
+import * as I from './i18n.js?v=10';
+import * as Art from './art.js?v=10';
 
 const params = new URLSearchParams(location.search);
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -176,7 +176,7 @@ function sendHere() {
   const best = formal.reduce((a, x) => (E.receive(amount, x, mid) > E.receive(amount, a, mid) ? x : a), formal[0]);
   const bestGot = E.receive(amount, best, mid);
   const r = E.send(run, c, amount, run.r(), mid);
-  screen = 'receipt'; st.sent = true; st.lost = !!r.lost; st.received = r.received || 0;
+  screen = 'receipt'; st.sent = true; st.lost = !!r.lost; st.received = r.received || 0; st.cost = r.cost || 0;
   if (c.informal) {
     app.innerHTML = `${hud()}<div class="${r.lost ? 'lost' : 'panel'}"><p>${r.lost ? T('rInformalLost', { x: money(amount) }) : T('rInformalOk')}</p>
       ${r.lost ? '' : `<p>${T('rGets')}: <b>${I.home(r.received, corridor)}</b></p>`}<div class="actions"><button class="primary" data-act="news">${T('next')}</button></div></div>`;
@@ -206,7 +206,8 @@ function news() {
   const name = id => T('need_' + id);
   const lines = [...out.met.map(id => `<p class="plus">${T('needMet', { need: name(id) })}</p>`),
     ...out.missed.map(id => `<p class="alert">${T('needMissed', { need: name(id) })}</p>`),
-    out.short ? `<p class="alert">${T('short', { x: homeMoney(out.short) })}</p>` : `<p>${T('fine')}</p>`].join('');
+    // short only by what the transfer cost: say so, that is the lesson of the receipt
+    out.short ? `<p class="alert">${T(st.sent && !st.lost && out.short <= st.cost + 1 ? 'shortCost' : 'short', { x: homeMoney(out.short) })}</p>` : `<p>${T('fine')}</p>`].join('');
   screen = 'news';
   app.innerHTML = `${hud()}${st.sent ? Art.flight(st.lost, '+' + I.home(st.received, corridor)) : ''}<div class="panel"><h2>${T('homeNews')}</h2>${lines}<div class="actions"><button class="primary" data-act="next">${T('next')}</button></div></div>`;
   out.missed.length || out.short ? SND.bad() : SND.good();
