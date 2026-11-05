@@ -1,6 +1,6 @@
 # Send Home
 
-**Play:** [designmastersolutions.itch.io/send-home](https://designmastersolutions.itch.io/send-home) (also on [GitHub Pages](https://designmaster-solutions.github.io/send-home-zoud/)) · **Video (2 min of gameplay):** [youtu.be/IJWxEnWZjug](https://youtu.be/IJWxEnWZjug) · **Concept doc:** [CONCEPT.pdf](https://designmaster-solutions.github.io/send-home-zoud/docs/CONCEPT.pdf) · **Budget:** [BUDGET.pdf](https://designmaster-solutions.github.io/send-home-zoud/docs/BUDGET.pdf) · **Playtest round 1:** [docs/PLAYTEST.md](docs/PLAYTEST.md) · **Jam entry:** [itch.io/jam/zoud-gamelab/rate/5301635](https://itch.io/jam/zoud-gamelab/rate/5301635)
+**Play:** [designmastersolutions.itch.io/send-home](https://designmastersolutions.itch.io/send-home) (also on [GitHub Pages](https://designmaster-solutions.github.io/send-home-zoud/)) · **Video (2 min of gameplay):** [youtu.be/-MtKmazkDUg](https://youtu.be/-MtKmazkDUg) · **Concept doc:** [CONCEPT.pdf](https://designmaster-solutions.github.io/send-home-zoud/docs/CONCEPT.pdf) · **Budget:** [BUDGET.pdf](https://designmaster-solutions.github.io/send-home-zoud/docs/BUDGET.pdf) · **Playtest round 1:** [docs/PLAYTEST.md](docs/PLAYTEST.md) · **Jam entry:** [itch.io/jam/zoud-gamelab/rate/5301635](https://itch.io/jam/zoud-gamelab/rate/5301635)
 
 Second entry by Design Master Solutions to [Zoud GameLab](https://itch.io/jam/zoud-gamelab) (theme: Make FinLit Fun; jam closes 15/11/2026 23:59 AoE). Our first entry is [Snowball](https://designmastersolutions.itch.io/snowball) (compound growth over a lifetime). This one is about the money that leaves the UAE every payday.
 
@@ -8,7 +8,7 @@ Second entry by Design Master Solutions to [Zoud GameLab](https://itch.io/jam/zo
 
 You work in Dubai and your family lives in another country. Every payday the salary lands and you split it three ways: life here (rent, food, transport), a safety net, and the transfer home. Then you go and send it.
 
-The street of exchange counters and apps is the game board. Every counter shows a fee and a rate, and the loud ones shout "ZERO FEE". The only number that matters is what your family **receives**, and the player learns to read it fast, before the Friday queue moves on. A friend of a friend on the phone offers a better rate in cash, no receipt. Messages from home arrive between paydays: school fees, a roof before the rains, a cousin's wedding, a hospital bill.
+The street of exchange counters and apps is the game board. Every counter shows a fee and a rate, and the loud ones shout "ZERO FEE". The only number that matters is what your family **receives**, and the player learns to read it fast, before the Friday queue moves on. A friend of a friend on the phone offers a better rate in cash, no receipt. Messages from home arrive between paydays: school fees, a roof before the rains, the family festival (Diwali, Eid, or Christmas and a balikbayan box, by home country), a hospital bill.
 
 Trade-offs the player feels instead of reads:
 
