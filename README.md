@@ -61,4 +61,4 @@ Game rules that are not facts, and say so in the code (`econ.js`): a 1 in 5 chan
 
 ## License
 
-Code MIT. Art and sound are original, drawn in SVG and synthesized in code. Font: [Baloo Bhaijaan 2](https://fonts.google.com/specimen/Baloo+Bhaijaan+2) by Ek Type, SIL Open Font License 1.1, served from `fonts/`.
+Code MIT. Art and sound effects are original, drawn in SVG and synthesized in code. Music: one loop mixed from Apple Loops ("Tokyo Dreams" bass, guitars and pad with "Reverse Hat Beat 01", Chillwave pack), under Apple's loop licence for use in original works, in `music.wav`. Font: [Baloo Bhaijaan 2](https://fonts.google.com/specimen/Baloo+Bhaijaan+2) by Ek Type, SIL Open Font License 1.1, served from `fonts/`.

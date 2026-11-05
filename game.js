@@ -1,8 +1,8 @@
 // Send Home: the screens. The money lives in econ.js, the words in i18n.js, the settings in a11y.js.
-import * as E from './econ.js?v=18';
-import * as A from './a11y.js?v=18';
-import * as I from './i18n.js?v=18';
-import * as Art from './art.js?v=18';
+import * as E from './econ.js?v=19';
+import * as A from './a11y.js?v=19';
+import * as I from './i18n.js?v=19';
+import * as Art from './art.js?v=19';
 
 const params = new URLSearchParams(location.search);
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -45,7 +45,24 @@ function blip(freqs, type = 'sine', dur = 0.12) {
 const SND = { coin: () => blip([880, 1320], 'triangle'), tick: () => blip([440], 'square', 0.05), stamp: () => blip([180, 120], 'sawtooth', 0.15),
   bad: () => blip([300, 200, 140], 'sawtooth', 0.2), good: () => blip([523, 659, 784], 'sine', 0.15), tap: () => blip([660], 'sine', 0.05) };
 
+// Background music: one Apple Loops loop (README), low, from the first tap; Sound off silences it.
+const MUSIC_VOL = 0.35;
+let music;
+async function startMusic() {
+  if (music || S.mute) return;
+  music = 'loading';
+  try {
+    ac = ac || new AudioContext();
+    const buf = await ac.decodeAudioData(await (await fetch('music.wav')).arrayBuffer());
+    const g = ac.createGain(), s = ac.createBufferSource();
+    g.gain.value = S.mute ? 0 : MUSIC_VOL; s.buffer = buf; s.loop = true; s.connect(g).connect(ac.destination); s.start();
+    music = g; document.body.dataset.music = 'on';
+  } catch { music = null; /* no audio: the game still plays */ }
+}
+document.addEventListener('pointerdown', startMusic);
+
 function applySettings() {
+  if (music && music.gain) { music.gain.value = S.mute ? 0 : MUSIC_VOL; document.body.dataset.music = S.mute ? 'off' : 'on'; }
   document.body.className = A.KEYS.filter(k => S[k]).join(' ');
   document.documentElement.classList.toggle('large', !!S.large); // rem sizes follow <html>, not <body>
   document.documentElement.lang = lang;
