@@ -7,6 +7,7 @@ fail() { print -u2 "E2E FAIL: $*"; exit 1; }
 browse $D open "${U}?seed=7&lang=en&v=$RANDOM" >/dev/null
 browse $D wait --text "SEND HOME" 20 >/dev/null || fail "title"
 browse $D click --text "Start the year" >/dev/null
+browse $D wait "[data-music=on]" 10 >/dev/null || fail "music did not start on the first tap"
 browse $D wait --text "Payday 1 of 12" 10 >/dev/null || fail "payday"
 W=$(browse $D js 'return Math.max(...[...document.querySelectorAll(".actions")].map(a => a.scrollWidth - a.clientWidth))')
 [[ $W -le 0 ]] || fail "payday action row overflows by ${W}px"
