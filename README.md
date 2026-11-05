@@ -1,4 +1,6 @@
-# Send Home (working title)
+# Send Home
+
+**Play:** [designmastersolutions.itch.io/send-home](https://designmastersolutions.itch.io/send-home) (also on [GitHub Pages](https://designmaster-solutions.github.io/send-home-zoud/)) · **Video (2 min of gameplay):** [youtu.be/IJWxEnWZjug](https://youtu.be/IJWxEnWZjug) · **Concept doc:** [CONCEPT.pdf](https://designmaster-solutions.github.io/send-home-zoud/docs/CONCEPT.pdf) · **Budget:** [BUDGET.pdf](https://designmaster-solutions.github.io/send-home-zoud/docs/BUDGET.pdf) · **Playtest round 1:** [docs/PLAYTEST.md](docs/PLAYTEST.md)
 
 Second entry by Design Master Solutions to [Zoud GameLab](https://itch.io/jam/zoud-gamelab) (theme: Make FinLit Fun; jam closes 15/11/2026 23:59 AoE). Our first entry is [Snowball](https://designmastersolutions.itch.io/snowball) (compound growth over a lifetime). This one is about the money that leaves the UAE every payday.
 
@@ -56,4 +58,4 @@ Game rules that are not facts, and say so in the code (`econ.js`): a 1 in 5 chan
 
 ## License
 
-Code MIT. Assets original or credited in this file.
+Code MIT. Art and sound are original, drawn in SVG and synthesized in code. Font: [Baloo Bhaijaan 2](https://fonts.google.com/specimen/Baloo+Bhaijaan+2) by Ek Type, SIL Open Font License 1.1, served from `fonts/`.
