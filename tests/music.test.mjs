@@ -13,4 +13,5 @@ test('music.wav is one seamless loop under 1 MB, credited, and Sound off silence
   assert.match(readFileSync(new URL('../README.md', import.meta.url), 'utf8'), /Apple Loops/);
   const js = readFileSync(new URL('../game.js', import.meta.url), 'utf8');
   assert.match(js, /music\.gain\.value = S\.mute \? 0/, 'Sound off silences the music');
+  assert.match(js, /addEventListener\('click', startMusic\)/, 'a click (keyboard, assistive tech) also starts it');
 });
