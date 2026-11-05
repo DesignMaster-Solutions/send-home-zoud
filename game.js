@@ -1,8 +1,8 @@
 // Send Home: the screens. The money lives in econ.js, the words in i18n.js, the settings in a11y.js.
-import * as E from './econ.js?v=6';
-import * as A from './a11y.js?v=6';
-import * as I from './i18n.js?v=6';
-import * as Art from './art.js?v=6';
+import * as E from './econ.js?v=7';
+import * as A from './a11y.js?v=7';
+import * as I from './i18n.js?v=7';
+import * as Art from './art.js?v=7';
 
 const params = new URLSearchParams(location.search);
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -121,7 +121,7 @@ function goStreet() {
   }, 1000);
   streetScreen();
 }
-const clockText = m => { const t = 12 * 60 + 45 + E.STREET_MINUTES - m; return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`; };
+const clockText = m => { const t = 12 * 60 + 15 + E.STREET_MINUTES - m; return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`; };
 
 function counterCard(c) {
   const q = effQueue(c), open = S.calm || E.isOpen({ queue: q }, st.minutes);

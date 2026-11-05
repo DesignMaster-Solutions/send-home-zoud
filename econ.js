@@ -6,7 +6,7 @@ export const BILLS = 2100; // rent share, food, transport here: paid before anyt
 export const FAMILY_MONTHLY = 1000; // AED-equivalent the family at home lives on each month
 export const ADVANCE_CHARGE = 0.10; // the game's salary-advance lender charges 10% on what you borrow
 export const INFORMAL_RISK = 0.2; // game rule: each informal transfer has a 1 in 5 chance of never arriving
-export const STREET_MINUTES = 30; // the counters close for Friday prayer at 13:15; you arrive at 12:45
+export const STREET_MINUTES = 30; // the counters close for Friday prayer at 12:45 (UAE unified time since 2 Jan 2026); you arrive at 12:15
 export const APP_SETUP = 15; // the first time, the app needs 15 minutes to check your ID
 
 // Fictional counters (no real company). Margin = how far their rate sits below the mid-market rate.

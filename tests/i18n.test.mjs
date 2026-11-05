@@ -39,3 +39,10 @@ test('the game uses only strings that exist, and storage is always guarded', () 
   for (const [, k] of src.matchAll(/T\('([a-zA-Z_]+)'[,)]/g)) assert.ok(I.STR[k], `missing string ${k}`);
   for (const line of src.split('\n')) if (line.includes('localStorage')) assert.ok(line.includes('try'), `unguarded storage: ${line.trim()}`);
 });
+
+// UAE unified Friday prayer moved from 13:15 to 12:45 on 2 January 2026 (Awqaf circular; source in README).
+test('the street closes at the current Friday prayer time, 12:45', () => {
+  const all = Object.values(I.STR).flat().join('\n');
+  assert.doesNotMatch(all, /13:15/);
+  for (const l of [0, 1]) assert.match(I.STR.clock[l], /12:45/);
+});

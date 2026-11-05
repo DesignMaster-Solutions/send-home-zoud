@@ -49,7 +49,7 @@ Every real-world number the game shows comes from a public source listed here. C
 | Global average cost of sending USD 200: 6.36% (Q3 2025) | for the concept doc | [RPW Issue 54](https://remittanceprices.worldbank.org/sites/default/files/2026-04/RPW_main_report_and_annex_Q325.pdf) |
 | Personal remittances paid from the UAE: USD 62.1 billion in 2025 | for the concept doc | [World Bank WDI, BM.TRF.PWKR.CD.DT](https://data.worldbank.org/indicator/BM.TRF.PWKR.CD.DT?locations=AE) |
 | Mid-market rate, 1 AED = 25.82 INR, 75.36 PKR, 17.30 PHP | fixed for the game on 04/11/2026 | [open.er-api.com/v6/latest/AED](https://open.er-api.com/v6/latest/AED) (aggregator, not a central bank) |
-| The counters close for Friday prayer at 13:15 | the street clock | UAE unified Friday prayer time since January 2022 (to be linked to the u.ae page before submission) |
+| The counters close for Friday prayer at 12:45 | the street clock (you arrive at 12:15) | UAE unified Friday prayer time since 2 January 2026, set by the General Authority of Islamic Affairs, Endowments and Zakat (it was 13:15 from 2022 to 2025): [The National, 10/12/2025](https://www.thenationalnews.com/news/uae/2025/12/10/uae-friday-prayers-timing-change-2026/) |
 
 Game rules that are not facts, and say so in the code (`econ.js`): a 1 in 5 chance that an informal transfer never arrives, a 10% charge on a salary advance, 15% of money left idle at home going on everyday things, the salary paid a month late once a year.
 
