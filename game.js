@@ -1,8 +1,8 @@
 // Send Home: the screens. The money lives in econ.js, the words in i18n.js, the settings in a11y.js.
-import * as E from './econ.js?v=11';
-import * as A from './a11y.js?v=11';
-import * as I from './i18n.js?v=11';
-import * as Art from './art.js?v=11';
+import * as E from './econ.js?v=12';
+import * as A from './a11y.js?v=12';
+import * as I from './i18n.js?v=12';
+import * as Art from './art.js?v=12';
 
 const params = new URLSearchParams(location.search);
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -45,6 +45,7 @@ const SND = { coin: () => blip([880, 1320], 'triangle'), tick: () => blip([440],
 
 function applySettings() {
   document.body.className = A.KEYS.filter(k => S[k]).join(' ');
+  document.documentElement.classList.toggle('large', !!S.large); // rem sizes follow <html>, not <body>
   document.documentElement.lang = lang;
   document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
 }
@@ -94,11 +95,11 @@ function paydayScreen() {
   const open = E.NEEDS.filter(n => n.told <= run.p && n.due >= run.p);
   const msgs = open.map(n => `<div class="msg ${n.told === run.p ? 'new' : ''}"><b>${T('need_' + n.id)}</b>: ${homeMoney(n.aed)}
     · ${n.due === run.p ? T('dueNow') : T('dueOn', { n: n.due })}</div>`).join('');
-  app.innerHTML = `${hud()}<h2>${T('payday', { n: run.p })}</h2>
+  app.innerHTML = `${hud()}
     <div class="panel ledger">${ledger}${evs}</div>
     <div class="panel"><p class="muted">${T('msgFrom')}</p><div class="msg">${T('monthly', { x: homeMoney(E.FAMILY_MONTHLY) })}</div>${msgs}</div>
     <div class="panel"><div class="split"><span>${T('sendNow')}: <span id="sv">${money(st.amount)}</span></span><span class="muted">${T('keep')}: <span id="kv">${money(run.reserve - st.amount)}</span></span></div>
-    <input type="range" id="amt" min="0" max="${Math.floor(run.reserve / 50) * 50}" step="50" value="${Math.floor(st.amount / 50) * 50}" aria-label="${T('sendNow')}">
+    <input type="range" id="amt" min="0" max="${Math.floor(run.reserve / 10) * 10}" step="10" value="${Math.floor(st.amount / 10) * 10}" aria-label="${T('sendNow')}">
     <div class="actions"><button class="primary" data-act="street">${T('toStreet')}</button><button class="link" data-act="skip">${T('keepAll')}</button></div></div>`;
   app.querySelector('#amt').addEventListener('input', e => {
     st.amount = +e.target.value;
@@ -108,13 +109,15 @@ function paydayScreen() {
 }
 
 // ---------- the street of counters ----------
+// No clock in calm mode, nor on the first Friday: a new player learns the board before the queue counts.
+const noClock = () => S.calm || run.p === 1;
 const effQueue = c => (c.kind === 'app' && !run.appReady ? E.APP_SETUP : c.queue);
 function goStreet() {
   st.counters = E.street(run.p, run.r);
   st.minutes = E.STREET_MINUTES; st.paused = false; st.quote = null;
   screen = 'street';
   clearInterval(st.timer);
-  if (!S.calm) st.timer = setInterval(() => {
+  if (!noClock()) st.timer = setInterval(() => {
     if (st.paused || st.quote) return;
     st.minutes--; if (st.minutes <= 5 && st.minutes > 0) SND.tick();
     if (st.minutes <= 0) { clearInterval(st.timer); timeUp(); } else streetScreen();
@@ -124,7 +127,7 @@ function goStreet() {
 const clockText = m => { const t = 12 * 60 + 15 + E.STREET_MINUTES - m; return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`; };
 
 function counterCard(c) {
-  const q = effQueue(c), open = S.calm || E.isOpen({ queue: q }, st.minutes);
+  const q = effQueue(c), open = noClock() || E.isOpen({ queue: q }, st.minutes);
   const rate = (mid * (1 - c.margin)).toFixed(2);
   const tag = c.loud ? `<span class="shout">${T('zeroFee')}</span>` : c.promo ? `<span class="shout">${T('feeWaived')}</span>` : '';
   const qline = !open ? T('closed') : c.kind === 'app' && !run.appReady ? T('setup', { m: q }) : c.kind === 'informal' ? T('noReceipt') : q ? T('queue', { m: q }) : T('noQueue');
@@ -139,9 +142,9 @@ function streetScreen() {
   const c = I.CORRIDORS[corridor];
   const pct = Math.max(0, st.minutes / E.STREET_MINUTES * 100);
   const sheet = st.quote ? quoteSheet(st.quote) : '';
-  app.innerHTML = `${hud()}<div class="panel"><div class="row" style="justify-content:space-between"><b>${S.calm ? T('clock') : clockText(st.minutes) + ' · ' + T('clock')}</b>
-    ${S.calm ? '' : `<button class="link" data-act="pause">${T('pause')}</button>`}</div>
-    ${S.calm ? '' : `<div class="clock ${st.minutes <= 5 ? 'low' : ''}"><i style="width:${pct}%"></i></div>`}
+  app.innerHTML = `${hud()}<div class="panel"><div class="row" style="justify-content:space-between"><b>${noClock() ? T(S.calm ? 'clockCalm' : 'clockFirst') : clockText(st.minutes) + ' · ' + T('clock')}</b>
+    ${noClock() ? '' : `<button class="link" data-act="pause">${T('pause')}</button>`}</div>
+    ${noClock() ? '' : `<div class="clock ${st.minutes <= 5 ? 'low' : ''}"><i style="width:${pct}%"></i></div>`}
     <p><b>${T('fair', { r: mid.toFixed(2), cur: c.cur })}</b> <span class="muted">${T('fairHint')}</span></p>
     <p>${T('sendNow')}: <b>${money(st.amount)}</b></p></div>
     <div class="grid">${st.counters.map(counterCard).join('')}</div>${sheet}
@@ -157,8 +160,8 @@ function quoteSheet(c) {
 
 function ask(kind) {
   const c = st.counters.find(x => x.kind === kind);
-  if (!S.calm) st.minutes -= 2; // asking takes 2 minutes of the queue
-  if (!S.calm && st.minutes <= 0) return timeUp();
+  if (!noClock()) st.minutes -= 2; // asking takes 2 minutes of the queue
+  if (!noClock() && st.minutes <= 0) return timeUp();
   st.quote = c; SND.tap(); streetScreen();
 }
 
@@ -172,7 +175,7 @@ function timeUp() {
 function sendHere() {
   clearInterval(st.timer);
   const c = st.quote, amount = st.amount;
-  const formal = st.counters.filter(x => !x.informal && (S.calm || E.isOpen({ queue: effQueue(x) }, st.minutes + 2)));
+  const formal = st.counters.filter(x => !x.informal && (noClock() || E.isOpen({ queue: effQueue(x) }, st.minutes + 2)));
   const best = formal.reduce((a, x) => (E.receive(amount, x, mid) > E.receive(amount, a, mid) ? x : a), formal[0]);
   const bestGot = E.receive(amount, best, mid);
   const r = E.send(run, c, amount, run.r(), mid);
@@ -207,6 +210,7 @@ function news() {
   const lines = [...out.met.map(id => `<p class="plus">${T('needMet', { need: name(id) })}</p>`),
     ...out.missed.map(id => `<p class="alert">${T('needMissed', { need: name(id) })}</p>`),
     // short only by what the transfer cost: say so, that is the lesson of the receipt
+    out.spent >= 1 ? `<p class="muted">${T('spent', { x: homeMoney(out.spent) })}</p>` : '',
     out.short ? `<p class="alert">${T(st.sent && !st.lost && out.short <= st.cost + 1 ? 'shortCost' : 'short', { x: homeMoney(out.short) })}</p>` : `<p>${T('fine')}</p>`].join('');
   screen = 'news';
   app.innerHTML = `${hud()}${st.sent ? Art.flight(st.lost, '+' + I.home(st.received, corridor)) : ''}<div class="panel"><h2>${T('homeNews')}</h2>${lines}<div class="actions"><button class="primary" data-act="next">${T('next')}</button></div></div>`;
@@ -227,7 +231,7 @@ function end() {
   const row = (k, v) => `<div><span>${T(k)}</span><b>${v}</b></div>`;
   app.innerHTML = `<p class="muted">${T('endTitle')}</p><p class="ending">${T('end_' + e)}</p><p>${T('endSub_' + e, { x: money(run.reserve) })}</p>
     <div class="panel stats">${row('eReached', homeMoney(run.received))}${row('eCosts', money(run.costs))}
-    ${row('eInformal', money(run.lostInformal))}${row('eAdvance', money(run.advanceCharges))}${row('eNeeds', `${run.met.length} / ${E.NEEDS.length}`)}${row('cushion', money(run.reserve))}</div>
+    ${row('eInformal', money(run.lostInformal))}${row('eAdvance', money(run.advanceCharges))}${row('eNeeds', `${run.met.length} / ${E.NEEDS.length}`)}${row('eShort', `${run.shortMonths} / ${E.PAYDAYS}`)}${row('cushion', money(run.reserve))}</div>
     <div class="actions"><button class="primary" data-act="again">${T('again')}</button></div>`;
   E.GOOD_ENDINGS.includes(e) ? SND.good() : SND.bad();
 }
@@ -292,7 +296,7 @@ function autoStep() {
   }
   if (sc === 'street' && !st.quote && !st.autoAsked) {
     st.autoAsked = true;
-    const open = st.counters.filter(c => S.calm || E.isOpen({ queue: effQueue(c) }, st.minutes - 4));
+    const open = st.counters.filter(c => noClock() || E.isOpen({ queue: effQueue(c) }, st.minutes - 4));
     const best = open.filter(c => !c.informal).reduce((a, c) => (E.receive(st.amount, c, mid) > E.receive(st.amount, a, mid) ? c : a));
     const pick = risky && p === 5 ? 'informal' : best.kind;
     if (p === 1) return later(2200, () => { cap('cap_zero'); ask('zero'); later(2200, () => { click('[data-act=back]'); later(1200, () => { cap('cap_compare'); ask(pick); later(2000, () => click('[data-act=send]')); }); }); });

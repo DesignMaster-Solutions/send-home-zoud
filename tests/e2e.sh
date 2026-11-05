@@ -37,6 +37,10 @@ browse $D wait --text "choose what to send home" 20 >/dev/null || fail "caption 
 browse $D open "${U}?seed=7&lang=en&autoplay&fast&a11y=calm&v=$RANDOM" >/dev/null
 browse $D wait --text "The year is over" 90 >/dev/null || fail "autoplay year did not end: $(browse $D text | head -5)"
 E=$(browse $D text .stats)
-[[ $E == *"Needs paid at home"* ]] || fail "end stats: $E"
+[[ $E == *"Needs paid at home"* && $E == *"Months the family went short"* ]] || fail "end stats: $E"
+# Large text really makes text larger (rem sizes follow <html>)
+browse $D open "${U}?seed=7&lang=en&a11y=large&v=$RANDOM" >/dev/null
+browse $D wait --text "SEND HOME" 20 >/dev/null
+[[ $(browse $D js 'return getComputedStyle(document.documentElement).fontSize') == 21px ]] || fail "large text did not change the size"
 print "end: $(browse $D text .ending)"
 print "E2E OK on $D"

@@ -112,11 +112,11 @@ export function closePayday(s, needs = NEEDS) {
   for (const n of needs.filter(n => n.due === s.p)) {
     if (s.pot >= n.aed) { s.pot -= n.aed; met.push(n.id); } else missed.push(n.id);
   }
-  const short = Math.max(0, FAMILY_MONTHLY - s.pot);
-  s.pot = Math.max(0, s.pot - FAMILY_MONTHLY) * (1 - HOME_SPEND);
+  const short = Math.max(0, FAMILY_MONTHLY - s.pot), left = Math.max(0, s.pot - FAMILY_MONTHLY), spent = left * HOME_SPEND;
+  s.pot = left - spent;
   if (short > 0) s.shortMonths++;
   s.met.push(...met); s.missed.push(...missed);
-  return { met, missed, short };
+  return { met, missed, short, spent };
 }
 
 export function ending(s) {

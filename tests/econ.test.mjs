@@ -66,6 +66,7 @@ test('a home need is paid from what arrived, or missed', () => {
   let out = E.closePayday(s, [{ id: 'school', due: 1, aed: 1500 }]);
   assert.deepEqual(out.met, ['school']);
   assert.equal(s.pot, 200 * (1 - E.HOME_SPEND)); // money left sitting at home partly gets spent
+  assert.equal(out.spent, 200 * E.HOME_SPEND); // and the news says how much
   s.p = 2; s.pot = 1000;
   out = E.closePayday(s, [{ id: 'roof', due: 2, aed: 1500 }]);
   assert.deepEqual(out.missed, ['roof']);
