@@ -1,8 +1,8 @@
 // Send Home: the screens. The money lives in econ.js, the words in i18n.js, the settings in a11y.js.
-import * as E from './econ.js?v=10';
-import * as A from './a11y.js?v=10';
-import * as I from './i18n.js?v=10';
-import * as Art from './art.js?v=10';
+import * as E from './econ.js?v=11';
+import * as A from './a11y.js?v=11';
+import * as I from './i18n.js?v=11';
+import * as Art from './art.js?v=11';
 
 const params = new URLSearchParams(location.search);
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -271,11 +271,16 @@ function rerender() {
 // Payday 1 shows the loud ZERO FEE quote first; ?autoplay=risky also takes the phone offer once (payday 5).
 // ?pace=0.6 sets the speed of a recording (a whole year in about 2 minutes); ?fast is the e2e speed.
 const AUTO = params.has('autoplay'), PACE = params.has('fast') ? 0.08 : Math.min(2, Math.max(0.05, +params.get('pace') || 1));
+// ?caption lays a line under the recording that says what is happening, the first time it happens.
+const CAP = AUTO && params.has('caption') && document.body.appendChild(Object.assign(document.createElement('p'), { className: 'cap' }));
+const cap = k => { if (CAP) { CAP.textContent = k ? T(k, { home: I.CORRIDORS[corridor][lang] }) : ''; CAP.hidden = !k; } };
 function autoStep() {
   if (!AUTO) return;
   const later = (ms, f) => setTimeout(f, ms * PACE);
   const click = sel => { const b = app.querySelector(sel); if (b && !b.disabled) b.click(); };
-  const sc = screen, p = run && run.p;
+  const sc = screen, p = run && run.p, risky = params.get('autoplay') === 'risky';
+  cap(sc === 'title' ? 'cap_title' : sc === 'end' ? 'cap_end' : p === 1 && sc !== 'street' ? 'cap_' + sc
+    : sc === 'receipt' && st.lost ? 'cap_lost' : sc === 'street' && risky && p === 5 ? 'cap_phone' : '');
   if (sc === 'title') return later(2500, () => click('[data-act=start]'));
   if (sc === 'payday') {
     const due = E.NEEDS.filter(n => n.due === run.p).reduce((t, n) => t + n.aed, 0);
@@ -289,8 +294,8 @@ function autoStep() {
     st.autoAsked = true;
     const open = st.counters.filter(c => S.calm || E.isOpen({ queue: effQueue(c) }, st.minutes - 4));
     const best = open.filter(c => !c.informal).reduce((a, c) => (E.receive(st.amount, c, mid) > E.receive(st.amount, a, mid) ? c : a));
-    const pick = params.get('autoplay') === 'risky' && p === 5 ? 'informal' : best.kind;
-    if (p === 1) return later(2200, () => { ask('zero'); later(2200, () => { click('[data-act=back]'); later(1200, () => { ask(pick); later(2000, () => click('[data-act=send]')); }); }); });
+    const pick = risky && p === 5 ? 'informal' : best.kind;
+    if (p === 1) return later(2200, () => { cap('cap_zero'); ask('zero'); later(2200, () => { click('[data-act=back]'); later(1200, () => { cap('cap_compare'); ask(pick); later(2000, () => click('[data-act=send]')); }); }); });
     return later(2200, () => { ask(pick); later(2000, () => click('[data-act=send]')); });
   }
   if (sc === 'receipt') return later(3800, () => click('[data-act=news]'));
