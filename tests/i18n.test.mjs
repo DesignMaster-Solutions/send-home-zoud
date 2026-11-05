@@ -38,7 +38,7 @@ test('the game uses only strings that exist, and storage is always guarded', () 
   const src = readFileSync(new URL('../game.js', import.meta.url), 'utf8');
   for (const [, k] of src.matchAll(/T\('([a-zA-Z_]+)'[,)]/g)) assert.ok(I.STR[k], `missing string ${k}`);
   // T(cond ? 'a' : 'b', ...) picks one of two keys: both must exist
-  for (const [, a, b] of src.matchAll(/T\([^'`]*\?\s*'([a-zA-Z_]+)'\s*:\s*'([a-zA-Z_]+)'/g)) for (const k of [a, b]) assert.ok(I.STR[k], `missing string ${k}`);
+  for (const m of src.matchAll(/T\(([^`]*?)\)/g)) for (const [, k] of m[1].matchAll(/[?:]\s*'([a-zA-Z_]+)'(?!\s*\+)/g)) assert.ok(I.STR[k], `missing string ${k}`);
   for (const line of src.split('\n')) if (line.includes('localStorage')) assert.ok(line.includes('try'), `unguarded storage: ${line.trim()}`);
 });
 

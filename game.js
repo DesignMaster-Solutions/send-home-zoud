@@ -1,8 +1,8 @@
 // Send Home: the screens. The money lives in econ.js, the words in i18n.js, the settings in a11y.js.
-import * as E from './econ.js?v=13';
-import * as A from './a11y.js?v=13';
-import * as I from './i18n.js?v=13';
-import * as Art from './art.js?v=13';
+import * as E from './econ.js?v=14';
+import * as A from './a11y.js?v=14';
+import * as I from './i18n.js?v=14';
+import * as Art from './art.js?v=14';
 
 const params = new URLSearchParams(location.search);
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -110,6 +110,8 @@ function paydayScreen() {
 
 // ---------- the street of counters ----------
 // No clock in calm mode, nor on the first Friday: a new player learns the board before the queue counts.
+// After the phone offer has taken money once, the next one is a different voice: the scam comes back with a new face.
+const cname = c => T(c.informal && run.lostInformal > 0 ? 'c_informal_again' : 'c_' + c.kind);
 const noClock = () => S.calm || run.p === 1;
 const effQueue = c => (c.kind === 'app' && !run.appReady ? E.APP_SETUP : c.queue);
 function goStreet() {
@@ -132,7 +134,7 @@ function counterCard(c) {
   const tag = c.loud ? `<span class="shout">${T('zeroFee')}</span>` : c.promo ? `<span class="shout">${T('feeWaived')}</span>` : '';
   const qline = !open ? T('closed') : c.kind === 'app' && !run.appReady ? T('setup', { m: q }) : c.kind === 'informal' ? T('noReceipt') : q ? T('queue', { m: q }) : T('noQueue');
   return `<button class="counter" data-kind="${c.kind}" data-c="${c.kind}" ${open ? '' : 'disabled'}>
-    ${Art.facade(c.kind)}<span class="sign">${T('c_' + c.kind)}</span><span class="body">${tag}
+    ${Art.facade(c.kind)}<span class="sign">${cname(c)}</span><span class="body">${tag}
     <span>${T('fee')} <span class="big">${money(c.fee)}</span></span>
     <span>${T('rate')} <span class="big">${rate}</span> <span class="muted">${I.CORRIDORS[corridor].cur}</span></span>
     <span class="muted">${qline}</span></span></button>`;
@@ -153,7 +155,7 @@ function streetScreen() {
 
 function quoteSheet(c) {
   const got = E.receive(st.amount, c, mid);
-  return `<div class="sheet" role="dialog"><p><b>${T('c_' + c.kind)}</b></p><p>${T('quoteFor', { x: money(st.amount) })}</p>
+  return `<div class="sheet" role="dialog"><p><b>${cname(c)}</b></p><p>${T('quoteFor', { x: money(st.amount) })}</p>
     <p class="big">${I.home(got, corridor)}</p>
     <div class="actions"><button class="primary" data-act="send">${T('sendHere')}</button><button class="link" data-act="back">${T('back')}</button></div></div>`;
 }

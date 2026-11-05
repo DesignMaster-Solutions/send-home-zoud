@@ -85,6 +85,7 @@ export const STR = {
   c_zero: ['Metro Kiosk', 'كشك المترو'],
   c_app: ['Paper Kite app', 'تطبيق الطائرة الورقية'],
   c_informal: ['A friend of a friend, on the phone', 'صديق لصديق، على الهاتف'],
+  c_informal_again: ['Another friend of a friend, new number', 'صديق آخر لصديق، رقم جديد'],
   quote: ['Ask for a quote', 'اطلب عرضاً'],
   quoteFor: ['For {x}, your family receives', 'مقابل {x}، تستلم عائلتك'],
   sendHere: ['Send here', 'أرسل من هنا'],
