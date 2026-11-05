@@ -2,7 +2,7 @@
 
 ## Short description
 
-Twelve paydays in Dubai, a family at home. Read the fee and the rate on a street of counters before Friday prayer, and get the money there.
+Payday in Dubai, family back home. Read past the ZERO FEE signs and count what really reaches them.
 
 ## Description
 
@@ -14,7 +14,7 @@ Twelve paydays in Dubai, a family at home. Read the fee and the rate on a street
 <p><strong>UAE edition and accessibility:</strong> English and Arabic (right to left), money in dirhams. Settings on the title screen: large text, high contrast, calm (no clock), plain words, sound off; P or Esc pauses on the street.</p>
 <p>About 8 minutes for a year. Plays on phones and desktops. Made by Design Master Solutions. Code: <a href="https://github.com/DesignMaster-Solutions/send-home-zoud">github.com/DesignMaster-Solutions/send-home-zoud</a>.</p>
 
-## Instructions
+## Instructions (on the page, as the last paragraph of the description)
 
 <p>Tap or click. On each payday, move the slider (or tap Enough or All) to choose what to send, then go to the street. Tap a counter to ask for a quote (it takes 2 minutes of the queue), then send there or look elsewhere. Read the receipt. P or Esc pauses on the street.</p>
 
