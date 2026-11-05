@@ -16,8 +16,12 @@ Twelve paydays in Dubai, a family at home. Read the fee and the rate on a street
 
 ## Instructions
 
-<p>Tap or click. On each payday, move the slider to choose what to send, then go to the street. Tap a counter to ask for a quote (it takes 2 minutes of the queue), then send there or look elsewhere. Read the receipt. P or Esc pauses on the street.</p>
+<p>Tap or click. On each payday, move the slider (or tap Enough or All) to choose what to send, then go to the street. Tap a counter to ask for a quote (it takes 2 minutes of the queue), then send there or look elsewhere. Read the receipt. P or Esc pauses on the street.</p>
 
 ## AI disclosure (jam form field 48240 equivalent and itch AI disclosure)
 
-Send Home was built with an AI coding agent, Anthropic Claude (Claude Code), under my direction: the game code (HTML, SVG, JavaScript), the Arabic text of the UAE edition, and drafts of the design, the concept document and the budget. A native-speaker review of the Arabic is in the budget. The money model is covered by automated tests in the public repo and the game is tested on real devices. No AI-generated images, music or voice: the art is drawn in SVG code and the sound is synthesized in the browser. Font: Baloo Bhaijaan 2 (SIL Open Font License).
+Send Home was built with an AI coding agent, Anthropic Claude (Claude Code), under my direction: the game code (HTML, SVG, JavaScript), the Arabic text of the UAE edition, and drafts of the design, the concept document and the budget. A native-speaker review of the Arabic is in the budget. The money model is covered by automated tests in the public repo and the game is tested on real devices. The first playtest round was played by AI agents (Claude and Gemini) driving a real browser; their findings and our changes are in docs/PLAYTEST.md. No AI-generated images, music or voice: the art is drawn in SVG code and the sound is synthesized in the browser. Font: Baloo Bhaijaan 2 (SIL Open Font License).
+
+## Jam form: Making FinLit Fun
+
+Every payday you choose what to send home and what to keep, then you walk a street of exchange counters before they close for Friday prayer at 12:45. Each counter shows a fee and a rate; the loud kiosk shouts ZERO FEE and its rate takes the most. You ask for quotes against the clock, send, and a receipt splits the cost into the fee and the margin hidden in the rate, measured against the mid-market rate and the UN goal of 3%. A friend of a friend on the phone offers a better rate in cash, no receipt, until the day the money never arrives. Trouble here comes out of your cushion or becomes a salary advance with a charge. Players learn by playing: compare what the family receives, not the fee; keep a cushion; use a licensed channel that gives a receipt.
