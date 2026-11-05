@@ -30,6 +30,32 @@ W=$(browse $D js 'return document.documentElement.scrollWidth - innerWidth')
 browse $D click --text "Next" >/dev/null
 browse $D wait --text "News from home" 10 >/dev/null || fail "news"
 [[ $(browse $D js 'return document.querySelector(".flight .arrived")?.textContent || ""') == *"₹"* ]] || fail "no coin flight with the amount that arrived"
+# From payday 2 the clock ticks: it must not rebuild the counters (Chrome drops a click whose pressed button was removed).
+browse $D open "${U}?seed=7&lang=en&v=$RANDOM" >/dev/null
+browse $D wait --text "SEND HOME" 20 >/dev/null
+browse $D click --text "Start the year" >/dev/null
+browse $D wait --text "Payday 1 of 12" 10 >/dev/null
+browse $D click "[data-amt]" >/dev/null
+browse $D click --text "Go to the street" >/dev/null
+browse $D wait --text "Mid-market rate today" 10 >/dev/null
+browse $D click '[data-c=saffron]' >/dev/null
+browse $D wait --text "your family receives" 10 >/dev/null
+browse $D click --text "Send here" >/dev/null
+browse $D wait --text "Your family receives" 10 >/dev/null
+browse $D click --text "Next" >/dev/null
+browse $D wait --text "News from home" 10 >/dev/null
+browse $D click '[data-act=next]' >/dev/null
+browse $D wait --text "Payday 2 of 12" 10 >/dev/null || fail "payday 2"
+browse $D click "[data-amt]" >/dev/null
+browse $D click --text "Go to the street" >/dev/null
+browse $D wait --text "Mid-market rate today" 10 >/dev/null || fail "street with a clock"
+T0=$(browse $D text '.panel b')
+browse $D js 'document.querySelector(".counter:not([disabled])").dataset.mark = 1; return 1' >/dev/null
+sleep 2.5
+[[ $(browse $D js 'return document.querySelectorAll("[data-mark]").length') == 1 ]] || fail "the clock rebuilt the counters"
+[[ $(browse $D text '.panel b') != $T0 ]] || fail "the clock did not tick: $T0"
+browse $D click '[data-mark]' >/dev/null
+browse $D wait --text "your family receives" 10 >/dev/null || fail "no quote after the clock ticked"
 # Arabic: the same street reads right to left
 browse $D open "${U}?seed=7&lang=ar&v=$RANDOM" >/dev/null
 browse $D wait --text "ابدأ السنة" 20 >/dev/null || fail "arabic title"

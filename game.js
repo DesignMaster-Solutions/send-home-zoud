@@ -1,8 +1,8 @@
 // Send Home: the screens. The money lives in econ.js, the words in i18n.js, the settings in a11y.js.
-import * as E from './econ.js?v=15';
-import * as A from './a11y.js?v=15';
-import * as I from './i18n.js?v=15';
-import * as Art from './art.js?v=15';
+import * as E from './econ.js?v=16';
+import * as A from './a11y.js?v=16';
+import * as I from './i18n.js?v=16';
+import * as Art from './art.js?v=16';
 
 const params = new URLSearchParams(location.search);
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -129,29 +129,45 @@ function goStreet() {
   if (!noClock()) st.timer = setInterval(() => {
     if (st.paused || st.quote) return;
     st.minutes--; if (st.minutes <= 5 && st.minutes > 0) SND.tick();
-    if (st.minutes <= 0) { clearInterval(st.timer); timeUp(); } else streetScreen();
+    if (st.minutes <= 0) { clearInterval(st.timer); timeUp(); } else tickStreet();
   }, 1000);
   streetScreen();
 }
 const clockText = m => { const t = 12 * 60 + 15 + E.STREET_MINUTES - m; return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`; };
 
-function counterCard(c) {
+function counterState(c) {
   const q = effQueue(c), open = noClock() || E.isOpen({ queue: q }, st.minutes);
+  const qline = !open ? T('closed') : c.kind === 'app' && !run.appReady ? T('setup', { m: q }) : c.kind === 'informal' ? T('noReceipt') : q && !noClock() && q > st.minutes - 4 ? T('closingSoon', { m: q }) : q ? T('queue', { m: q }) : T('noQueue');
+  return { open, qline };
+}
+
+function counterCard(c) {
+  const { open, qline } = counterState(c);
   const rate = (mid * (1 - c.margin)).toFixed(2);
   const tag = c.loud ? `<span class="shout">${T('zeroFee')}</span>` : c.promo ? `<span class="shout">${T('feeWaived')}</span>` : '';
-  const qline = !open ? T('closed') : c.kind === 'app' && !run.appReady ? T('setup', { m: q }) : c.kind === 'informal' ? T('noReceipt') : q && !noClock() && q > st.minutes - 4 ? T('closingSoon', { m: q }) : q ? T('queue', { m: q }) : T('noQueue');
   return `<button class="counter" data-kind="${c.kind}" data-c="${c.kind}" ${open ? '' : 'disabled'}>
     ${Art.facade(c.kind)}<span class="sign">${cname(c)}</span><span class="body">${tag}
     <span>${T('fee')} <span class="big">${money(c.fee)}</span></span>
     <span>${T('rate')} <span class="big">${rate}</span> <span class="muted">${I.CORRIDORS[corridor].cur}</span></span>
-    <span class="muted">${qline}</span></span></button>`;
+    <span class="muted q">${qline}</span></span></button>`;
+}
+
+// The clock ticks in place. Rebuilding the counters every second lost clicks (Chrome drops a click whose pressed button was removed) and restarted the neon.
+function tickStreet() {
+  app.querySelector('.clocktxt').textContent = clockText(st.minutes) + ' · ' + T('clock');
+  const clock = app.querySelector('.clock');
+  clock.classList.toggle('low', st.minutes <= 5); clock.firstElementChild.style.width = `${Math.max(0, st.minutes / E.STREET_MINUTES * 100)}%`;
+  for (const c of st.counters) {
+    const b = app.querySelector(`[data-c=${c.kind}]`), { open, qline } = counterState(c);
+    b.disabled = !open; b.querySelector('.q').textContent = qline;
+  }
 }
 
 function streetScreen() {
   const c = I.CORRIDORS[corridor];
   const pct = Math.max(0, st.minutes / E.STREET_MINUTES * 100);
   const sheet = st.quote ? quoteSheet(st.quote) : '';
-  app.innerHTML = `${hud()}<div class="panel"><div class="row" style="justify-content:space-between"><b>${noClock() ? T(S.calm ? 'clockCalm' : 'clockFirst') : clockText(st.minutes) + ' · ' + T('clock')}</b>
+  app.innerHTML = `${hud()}<div class="panel"><div class="row" style="justify-content:space-between"><b class="clocktxt">${noClock() ? T(S.calm ? 'clockCalm' : 'clockFirst') : clockText(st.minutes) + ' · ' + T('clock')}</b>
     ${noClock() ? '' : `<button class="link" data-act="pause">${T('pause')}</button>`}</div>
     ${noClock() ? '' : `<div class="clock ${st.minutes <= 5 ? 'low' : ''}"><i style="width:${pct}%"></i></div>`}
     <p><b>${T('fair', { r: mid.toFixed(2), cur: c.cur })}</b> <span class="muted">${T('fairHint')}</span></p>
