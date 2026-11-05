@@ -1,0 +1,22 @@
+<!doctype html>
+<!-- Cover art for the itch page (?w=630&h=500) and the YouTube thumbnail (?w=1280&h=720): the game's own title scene. -->
+<meta charset="utf-8">
+<style>
+  @font-face{font-family:Baloo;font-weight:400 800;src:url(../fonts/baloo-latin.woff2) format('woff2')}
+  body{margin:0;background:#0f1d27}
+  #c{overflow:hidden;background:#17303d;display:flex;flex-direction:column;justify-content:space-between}
+  #c svg{display:block;width:100%;height:auto}
+  #t{padding:0 6% 6%;font-family:Baloo,sans-serif;color:#f2b134}
+  h1{margin:0;font-size:calc(var(--w) * .13px);line-height:.9;text-shadow:0 4px 0 #7a4a1c}
+  p{margin:.3em 0 0;color:#f4ead8;font-size:calc(var(--w) * .036px);font-weight:600}
+</style>
+<div id="c"><div id="t"><h1>SEND HOME</h1><p>Read the fee and the rate. Get it there before Friday prayer.</p></div></div>
+<script type="module">
+  import { scene } from '../art.js';
+  const q = new URLSearchParams(location.search), w = +q.get('w') || 630, h = +q.get('h') || 500;
+  const c = document.getElementById('c');
+  Object.assign(c.style, { width: w + 'px', height: h + 'px' });
+  c.style.setProperty('--w', w);
+  c.insertAdjacentHTML('afterbegin', scene());
+  document.body.dataset.ready = 1;
+</script>
