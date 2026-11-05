@@ -1,8 +1,8 @@
 // Send Home: the screens. The money lives in econ.js, the words in i18n.js, the settings in a11y.js.
-import * as E from './econ.js?v=17';
-import * as A from './a11y.js?v=17';
-import * as I from './i18n.js?v=17';
-import * as Art from './art.js?v=17';
+import * as E from './econ.js?v=18';
+import * as A from './a11y.js?v=18';
+import * as I from './i18n.js?v=18';
+import * as Art from './art.js?v=18';
 
 const params = new URLSearchParams(location.search);
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -259,6 +259,7 @@ function end() {
   app.innerHTML = `<p class="muted">${T('endTitle')}</p><p class="ending">${T('end_' + e)}</p><p>${T('endSub_' + e, { x: money(run.reserve) })}</p>
     <div class="panel stats">${row('eReached', homeMoney(run.received))}${row('eCosts', money(run.costs))}
     ${row('eInformal', money(run.lostInformal))}${row('eAdvance', money(run.advanceCharges))}${row('eNeeds', `${run.met.length} / ${E.NEEDS.length}`)}${row('eShort', `${run.shortMonths} / ${E.PAYDAYS}`)}${row('cushion', money(run.reserve))}</div>
+    <div class="panel truth"><h2>${T('trueTitle')}</h2>${['true_exchange', 'true_wps', 'true_hawala', 'true_cost'].map(k => `<p>${T(k, { home: I.CORRIDORS[corridor][lang], p: I.CORRIDORS[corridor].rpw })}</p>`).join('')}</div>
     <div class="actions"><button class="primary" data-act="again">${T('again')}</button></div>`;
   E.GOOD_ENDINGS.includes(e) ? SND.good() : SND.bad();
 }

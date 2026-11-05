@@ -60,3 +60,15 @@ test('each home country asks for its own festival, in both languages', () => {
   assert.equal(seen.size, Object.keys(I.CORRIDORS).length);
   assert.match(readFileSync(new URL('../game.js', import.meta.url), 'utf8'), /need_' \+ id \+ '_' \+ corridor/, 'game.js picks the festival by corridor');
 });
+
+// "What is true in the UAE" on the year summary: every line has its primary source in the README.
+test('the UAE facts panel exists in both languages and every fact is sourced in the README', () => {
+  const readme = readFileSync(new URL('../README.md', import.meta.url), 'utf8');
+  const SRC = { true_exchange: 'standards-regulations-regarding-licensing-and-monitoring-exchange-business', true_wps: 'payment-of-wages',
+    true_hawala: 'article-2-registration-and-certificate-requirements', true_cost: 'rpw_dataset_2011_2025_q1' };
+  for (const [k, url] of Object.entries(SRC)) {
+    assert.ok(I.STR[k]?.[0] && I.STR[k]?.[1], `missing ${k}`);
+    assert.ok(readme.includes(url), `README cites the source of ${k}`);
+  }
+  assert.match(readFileSync(new URL('../game.js', import.meta.url), 'utf8'), /T\('trueTitle'\)/);
+});
