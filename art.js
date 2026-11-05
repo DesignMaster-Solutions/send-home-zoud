@@ -66,3 +66,28 @@ export function flight(lost, label = '') {
 
 // Values for a count-up that eases out and lands exactly on the final number.
 export const countFrames = (to, n) => Array.from({ length: n }, (_, i) => (i === n - 1 ? to : to * (1 - (1 - (i + 1) / n) ** 3)));
+
+// "They sent a photo": a postcard from home for each need paid. The festival card follows the family's home.
+const PICS = {
+  school: `<rect x="70" y="34" width="60" height="44" rx="3" fill="#7fb2f0"/><path d="M100 34v44" stroke="#24466b" stroke-width="3"/>
+    <path d="M132 30l14 -14 6 6 -14 14z" fill="#f2b134"/><path d="M76 46h18M76 54h18M106 46h18M106 54h18" stroke="#e8f1fc" stroke-width="2"/>`,
+  roof: `<path d="M62 56l38 -30 38 30z" fill="#e4572e"/><path d="M60 57l40 -32 40 32" stroke="#7a4a1c" stroke-width="4" fill="none"/>
+    <rect x="70" y="56" width="60" height="30" fill="#f4ead8"/><rect x="92" y="66" width="16" height="20" fill="#7a4a1c"/>
+    ${[40, 52, 64].map(x => `<path d="M${x} 14l-4 10M${x + 110} 14l-4 10" stroke="#7fb2f0" stroke-width="2"/>`).join('')}`,
+  hospital: `<path d="M100 82s-30 -18 -30 -38a15 15 0 0 1 30 -6a15 15 0 0 1 30 6c0 20 -30 38 -30 38z" fill="#e4572e"/>
+    <path d="M100 44v20M90 54h20" stroke="#fff" stroke-width="5"/>`,
+  // Diwali: a lit clay diya lamp
+  wedding_india: `<path d="M70 62h60a30 18 0 0 1 -60 0z" fill="#b5651d"/><path d="M100 58c-8 -10 0 -22 0 -30c0 8 8 20 0 30z" fill="#f2b134"/>
+    <circle cx="100" cy="50" r="18" fill="#f2b134" opacity=".25"/>`,
+  // Eid: the crescent moon and a star
+  wedding_pakistan: `<circle cx="96" cy="54" r="26" fill="#f2b134"/><circle cx="108" cy="48" r="22" fill="#17303d"/>
+    <path d="M132 34l3 8 8 1 -6 5 2 8 -7 -4 -7 4 2 -8 -6 -5 8 -1z" fill="#f4ead8"/>`,
+  // Christmas: a parol star lantern
+  wedding_philippines: `<path d="M100 18l8 24 26 0 -21 15 8 25 -21 -15 -21 15 8 -25 -21 -15 26 0z" fill="#e4572e" stroke="#f2b134" stroke-width="3"/>
+    <path d="M90 82l-6 12M100 84v12M110 82l6 12" stroke="#f2b134" stroke-width="3"/>`,
+};
+export function postcard(id, home) {
+  const pic = PICS[id] || PICS[`${id}_${home}`] || PICS.wedding_india;
+  return svg('0 0 200 110', `<rect x="2" y="2" width="196" height="106" rx="6" fill="#17303d" stroke="#f4ead8" stroke-width="4"/>
+    <rect x="160" y="10" width="28" height="32" fill="#f4ead8" stroke="#e4572e" stroke-width="2" stroke-dasharray="3 2"/>${pic}`, 'postcard');
+}

@@ -35,3 +35,10 @@ test('countFrames eases from 0 to the exact final value', () => {
   assert.ok(f.every((x, i) => i === 0 || x >= f[i - 1]), 'never counts backwards');
   assert.ok(f[4] > 1234.5 / 2, 'ease-out: past half by the middle');
 });
+
+test('a postcard for every need paid at home, and the festival card follows the family', () => {
+  const ids = ['school', 'roof', 'wedding', 'hospital'], homes = ['india', 'pakistan', 'philippines'];
+  for (const id of ids) for (const h of homes) clean(Art.postcard(id, h), `${id}/${h}`);
+  assert.equal(new Set(ids.map(id => Art.postcard(id, 'india'))).size, ids.length, 'one picture per need');
+  assert.equal(new Set(homes.map(h => Art.postcard('wedding', h))).size, homes.length, 'diya, crescent, parol star');
+});

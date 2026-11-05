@@ -1,8 +1,8 @@
 // Send Home: the screens. The money lives in econ.js, the words in i18n.js, the settings in a11y.js.
-import * as E from './econ.js?v=16';
-import * as A from './a11y.js?v=16';
-import * as I from './i18n.js?v=16';
-import * as Art from './art.js?v=16';
+import * as E from './econ.js?v=17';
+import * as A from './a11y.js?v=17';
+import * as I from './i18n.js?v=17';
+import * as Art from './art.js?v=17';
 
 const params = new URLSearchParams(location.search);
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -17,6 +17,8 @@ let run, mid, screen, st; // st = this payday's street visit
 const T = (k, v) => A.plain(I.t(k, lang, v), S, lang);
 const money = x => I.aed(x, lang);
 const homeMoney = aedEq => I.home(aedEq * mid, corridor);
+// A need's words; the family festival has its own words per home country.
+const needName = id => T(I.STR['need_' + id + '_' + corridor] ? 'need_' + id + '_' + corridor : 'need_' + id);
 const moving = () => !S.calm && !matchMedia('(prefers-reduced-motion: reduce)').matches;
 const fly = () => { const m = moving() && app.querySelector('#fly'); if (m) { m.beginElement(); setTimeout(() => SND.coin(), 1700); } };
 // Count a receipt number up to its value; calm mode and reduced motion show it at once.
@@ -93,7 +95,7 @@ function paydayScreen() {
   ].join('');
   const evs = events.map(e => `<p class="alert">${T('em_' + e.id)}: ${money(e.aed)}. ${e.borrowed ? T('borrowed', { x: money(e.borrowed), c: money(e.charge) }) : T('paidCushion')}</p>`).join('');
   const open = E.NEEDS.filter(n => n.told <= run.p && n.due >= run.p);
-  const msgs = open.map(n => `<div class="msg ${n.told === run.p ? 'new' : ''}"><b>${T('need_' + n.id)}</b>: ${homeMoney(n.aed)} (≈ ${money(n.aed)})
+  const msgs = open.map(n => `<div class="msg ${n.told === run.p ? 'new' : ''}"><b>${needName(n.id)}</b>: ${homeMoney(n.aed)} (≈ ${money(n.aed)})
     · ${n.due === run.p ? T('dueNow') : T('dueOn', { n: n.due })}</div>`).join('');
   app.innerHTML = `${hud()}
     <div class="panel ledger">${ledger}${evs}</div>
@@ -144,7 +146,7 @@ function counterState(c) {
 function counterCard(c) {
   const { open, qline } = counterState(c);
   const rate = (mid * (1 - c.margin)).toFixed(2);
-  const tag = c.loud ? `<span class="shout">${T('zeroFee')}</span>` : c.promo ? `<span class="shout">${T('feeWaived')}</span>` : '';
+  const tag = c.loud ? `<span class="shout">${T('zeroFee')}</span>` : c.promo ? `<span class="shout">${T('feeWaived')}</span><span class="hint">${T('feeWaivedHint')}</span>` : '';
   return `<button class="counter" data-kind="${c.kind}" data-c="${c.kind}" ${open ? '' : 'disabled'}>
     ${Art.facade(c.kind)}<span class="sign">${cname(c)}</span><span class="body">${tag}
     <span>${T('fee')} <span class="big">${money(c.fee)}</span></span>
@@ -231,8 +233,8 @@ function sendHere() {
 // ---------- news from home, then the next payday ----------
 function news() {
   const out = E.closePayday(run);
-  const name = id => T('need_' + id);
-  const lines = [...out.met.map(id => `<p class="plus">${T('needMet', { need: name(id) })}</p>`),
+  const name = needName;
+  const lines = [...out.met.map(id => `<p class="plus">${T('needMet', { need: name(id) })}</p>${Art.postcard(id, corridor)}`),
     ...out.missed.map(id => `<p class="alert">${T('needMissed', { need: name(id) })}</p>`),
     // short only by what the transfer cost: say so, that is the lesson of the receipt
     out.spent >= 1 ? `<p class="muted">${T('spent', { x: homeMoney(out.spent) })}</p>` : '',

@@ -48,3 +48,15 @@ test('the street closes at the current Friday prayer time, 12:45', () => {
   assert.doesNotMatch(all, /13:15/);
   for (const l of [0, 1]) assert.match(I.STR.clock[l], /12:45/);
 });
+
+// Localization (rubric bonus): the family festival matches the home country; values and months stay the same.
+test('each home country asks for its own festival, in both languages', () => {
+  const seen = new Set();
+  for (const c of Object.keys(I.CORRIDORS)) {
+    const s = I.STR['need_wedding_' + c];
+    assert.ok(s && s[0] && s[1], `festival for ${c}`);
+    seen.add(s[0]);
+  }
+  assert.equal(seen.size, Object.keys(I.CORRIDORS).length);
+  assert.match(readFileSync(new URL('../game.js', import.meta.url), 'utf8'), /need_' \+ id \+ '_' \+ corridor/, 'game.js picks the festival by corridor');
+});
