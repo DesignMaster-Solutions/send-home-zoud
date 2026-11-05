@@ -1,8 +1,8 @@
 // Send Home: the screens. The money lives in econ.js, the words in i18n.js, the settings in a11y.js.
-import * as E from './econ.js?v=7';
-import * as A from './a11y.js?v=7';
-import * as I from './i18n.js?v=7';
-import * as Art from './art.js?v=7';
+import * as E from './econ.js?v=8';
+import * as A from './a11y.js?v=8';
+import * as I from './i18n.js?v=8';
+import * as Art from './art.js?v=8';
 
 const params = new URLSearchParams(location.search);
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -176,7 +176,7 @@ function sendHere() {
   const best = formal.reduce((a, x) => (E.receive(amount, x, mid) > E.receive(amount, a, mid) ? x : a), formal[0]);
   const bestGot = E.receive(amount, best, mid);
   const r = E.send(run, c, amount, run.r(), mid);
-  screen = 'receipt'; st.sent = true; st.lost = !!r.lost;
+  screen = 'receipt'; st.sent = true; st.lost = !!r.lost; st.received = r.received || 0;
   if (c.informal) {
     app.innerHTML = `${hud()}<div class="${r.lost ? 'lost' : 'panel'}"><p>${r.lost ? T('rInformalLost', { x: money(amount) }) : T('rInformalOk')}</p>
       ${r.lost ? '' : `<p>${T('rGets')}: <b>${I.home(r.received, corridor)}</b></p>`}<div class="actions"><button class="primary" data-act="news">${T('next')}</button></div></div>`;
@@ -208,7 +208,7 @@ function news() {
     ...out.missed.map(id => `<p class="alert">${T('needMissed', { need: name(id) })}</p>`),
     out.short ? `<p class="alert">${T('short', { x: homeMoney(out.short) })}</p>` : `<p>${T('fine')}</p>`].join('');
   screen = 'news';
-  app.innerHTML = `${hud()}${st.sent ? Art.flight(st.lost) : ''}<div class="panel"><h2>${T('homeNews')}</h2>${lines}<div class="actions"><button class="primary" data-act="next">${T('next')}</button></div></div>`;
+  app.innerHTML = `${hud()}${st.sent ? Art.flight(st.lost, '+' + I.home(st.received, corridor)) : ''}<div class="panel"><h2>${T('homeNews')}</h2>${lines}<div class="actions"><button class="primary" data-act="next">${T('next')}</button></div></div>`;
   out.missed.length || out.short ? SND.bad() : SND.good();
   fly();
 }
@@ -268,7 +268,8 @@ function rerender() {
 // ---------- ?autoplay: the game plays itself (attract mode, the gameplay video, the full-year e2e) ----------
 // It plays like a careful player: sends what the month and any due need require, compares quotes, keeps the rest.
 // Payday 1 shows the loud ZERO FEE quote first; ?autoplay=risky also takes the phone offer once (payday 5).
-const AUTO = params.has('autoplay'), PACE = params.has('fast') ? 0.08 : 1;
+// ?pace=0.6 sets the speed of a recording (a whole year in about 2 minutes); ?fast is the e2e speed.
+const AUTO = params.has('autoplay'), PACE = params.has('fast') ? 0.08 : Math.min(2, Math.max(0.05, +params.get('pace') || 1));
 function autoStep() {
   if (!AUTO) return;
   const later = (ms, f) => setTimeout(f, ms * PACE);

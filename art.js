@@ -49,19 +49,19 @@ export function scene() {
   const arc = 'M110 70 Q330 -30 560 92';
   const shops = ['#f2b134', '#7fb2f0', '#ff4f9a', '#b9e769', '#cfd8de'].map((c, i) =>
     `<g transform="translate(${150 + i * 64} 150)"><rect width="56" height="40" fill="#20414f"/>${awning(c, '#fff3d6', 56, 4)}<rect x="8" y="22" width="40" height="18" fill="#0a1720"/></g>`).join('');
-  return svg('0 0 640 200', `<rect width="640" height="200" fill="#17303d"/><circle cx="420" cy="58" r="34" fill="#f2b134" opacity=".9"/>
+  return svg('0 0 640 200', `<rect width="640" height="200" fill="#17303d"/><circle cx="250" cy="112" r="30" fill="#f2b134" opacity=".9"/>
     ${towers(20, 190)}${shops}<rect y="190" width="640" height="10" fill="#0a1720"/>
     <path d="${arc}" fill="none" stroke="#f4ead8" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round"/>${house(540, 128, true)}
     <g transform="translate(560 92)">${coin('M-450 -22 Q-230 -122 0 0', 'fly')}</g>`, 'scene');
 }
 
 // News from home: the coin crosses to the house, or falls short when the money was lost.
-export function flight(lost) {
+export function flight(lost, label = '') {
   // The coin rests at the end of its path (that is where calm mode shows it); the path is relative to that point.
   const [end, d] = lost ? ['360 136', 'M-240 -70 Q-120 -150 0 0'] : ['550 90', 'M-430 -24 Q-210 -120 0 0'];
   return svg('0 0 640 150', `<rect width="640" height="150" rx="14" fill="#17303d"/>${towers(14, 150)}
     <path d="M120 66 Q340 -30 550 90" fill="none" stroke="#f4ead8" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round" opacity=".6"/>
-    ${house(520, 104, !lost)}<g transform="translate(${end})">${coin(d, 'fly')}</g>`, 'flight');
+    ${house(520, 104, !lost)}${lost ? '' : `<text x="550" y="70" text-anchor="middle" class="arrived">${label}</text>`}<g transform="translate(${end})">${coin(d, 'fly')}</g>`, 'flight');
 }
 
 // Values for a count-up that eases out and lands exactly on the final number.

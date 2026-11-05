@@ -20,7 +20,8 @@ test('every counter on the street has a facade, and no two look the same', () =>
 test('the title scene and the flight home are self-contained drawings', () => {
   clean(Art.scene(), 'scene');
   for (const lost of [false, true]) {
-    const f = Art.flight(lost);
+    const f = Art.flight(lost, '+₹25,285');
+    assert.equal(f.includes('+₹25,285'), !lost, 'the amount that arrived shows by the house, never a lost one');
     clean(f, 'flight');
     assert.match(f, /class="coin"/);
     assert.equal(/class="house lit"/.test(f), !lost, 'the house lights up only when the money arrives');

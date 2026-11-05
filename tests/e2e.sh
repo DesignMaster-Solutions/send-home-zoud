@@ -13,6 +13,7 @@ W=$(browse $D js 'return Math.max(...[...document.querySelectorAll(".actions")].
 browse $D click --text "Go to the street" >/dev/null
 browse $D wait --text "Mid-market rate today" 10 >/dev/null || fail "street"
 [[ $(browse $D js 'return document.querySelectorAll(".counter").length') -ge 4 ]] || fail "counters"
+[[ $(browse $D js 'return [...document.querySelectorAll(".counter")].every(c => c.querySelector("svg.facade")) ? 1 : 0') == 1 ]] || fail "a counter has no facade"
 browse $D click '[data-c=saffron]' >/dev/null
 browse $D wait --text "your family receives" 10 >/dev/null || fail "quote"
 browse $D click --text "Send here" >/dev/null
@@ -23,6 +24,7 @@ W=$(browse $D js 'return document.documentElement.scrollWidth - innerWidth')
 [[ $W -le 0 ]] || fail "page wider than the screen by ${W}px"
 browse $D click --text "Next" >/dev/null
 browse $D wait --text "News from home" 10 >/dev/null || fail "news"
+[[ $(browse $D text .flight 2>/dev/null; browse $D js 'return document.querySelector(".flight .arrived")?.textContent || ""') == *"₹"* ]] || fail "no coin flight with the amount that arrived"
 # Arabic: the same street reads right to left
 browse $D open "${U}?seed=7&lang=ar&v=$RANDOM" >/dev/null
 browse $D wait --text "ابدأ السنة" 20 >/dev/null || fail "arabic title"
