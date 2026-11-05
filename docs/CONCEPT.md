@@ -24,7 +24,7 @@ Send Home is a short strategy game about the money that leaves the UAE every pay
 
 **Objective.** Get what your family needs home in time, every month of the year, without falling into debt here. The best ending also leaves you holding a cushion of your own.
 
-**Actions.** One slider and a few taps: split the salary, ask a counter for a quote, send, read the receipt.
+**Actions.** One slider, or the Enough and All buttons beside it, and a few taps: split the salary, ask a counter for a quote, send, read the receipt.
 
 **The loop.** Each payday has four short steps.
 
@@ -107,7 +107,7 @@ Each lesson maps to something a person can do on the next payday: ask for "how m
 
 **In the prototype today.** A full year of twelve paydays with six kinds of counters, four needs at home, four kinds of trouble here, salary advances, the receipt, the year summary and four endings. English and Arabic, three home countries, five accessibility settings and pause. An attract mode that plays a careful year by itself (`?autoplay`). Automated tests for the money model, the texts in both languages and the accessibility settings, and an end-to-end test that plays the whole year on a real Android phone. The public commit history shows it growing during the jam.
 
-**Not done yet.** Art and sound are prototype level. No real players who send money home have tested it yet. The Arabic was drafted with AI and checked in the game on a real device, but no native speaker has reviewed it. The families' languages (Hindi, Urdu, Filipino) are not in the game. The mid-market rates are fixed for the jam. It runs only in the browser.
+**Not done yet.** Art and sound are prototype level. No real players who send money home have tested it yet; two automated playthroughs by AI agents found ten problems, all fixed before submission (docs/PLAYTEST.md in the repository). The Arabic was drafted with AI and checked in the game on a real device, but no native speaker has reviewed it. The families' languages (Hindi, Urdu, Filipino) are not in the game. The mid-market rates are fixed for the jam. It runs only in the browser.
 
 ### Priorities, in order
 
