@@ -7,14 +7,28 @@
 <meta name="description" content="A game about sending money home from the UAE: read the fee and the rate, keep a cushion, and get it there.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23f2b134'/%3E%3Cpath d='M8 17l8-8 8 8M11 15v9h10v-9' fill='none' stroke='%23142430' stroke-width='3'/%3E%3C/svg%3E">
 <style>
+  /* Baloo Bhaijaan 2 (SIL OFL 1.1, Ek Type), self-hosted: one face for Latin and Arabic signs and numbers. */
+  @font-face{font-family:Baloo;font-weight:400 800;font-display:swap;src:url(fonts/baloo-latin.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+20A8-20B9}
+  @font-face{font-family:Baloo;font-weight:400 800;font-display:swap;src:url(fonts/baloo-arabic.woff2) format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFC}
   :root{--ink:#142430;--night:#0f1d27;--street:#17303d;--sand:#f4ead8;--paper:#fffaf0;--gold:#f2b134;--teal:#3fb6a8;--red:#e4572e;--muted:#9fb3bf;--fs:16px}
   *{box-sizing:border-box}
   html{font-size:var(--fs)}
   body{margin:0;min-height:100vh;background:var(--night);color:var(--sand);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Arabic","Geeza Pro",sans-serif;line-height:1.45}
   body.large{--fs:21px}
+  /* avoid-ai-design-ignore: SD2 — pure black is the high-contrast accessibility mode, chosen on purpose */
   body.contrast{--night:#000;--street:#000;--sand:#fff;--muted:#fff;--paper:#fff;--teal:#5ff2e0;--gold:#ffd23f}
   #app{max-width:980px;margin:0 auto;padding:14px 14px 40px;overflow-x:hidden}
-  h1{font-size:2.2rem;letter-spacing:.06em;margin:.3em 0 .1em;color:var(--gold)}
+  h1,h2,.ending,.big,.sign,.primary,.hud b,.split{font-family:Baloo,system-ui,sans-serif}
+  h1{font-size:2.8rem;line-height:1;letter-spacing:.02em;margin:.3em 0 .15em;color:var(--gold);text-shadow:0 3px 0 #7a4a1c}
+  .hero svg,.flight{display:block;width:100%;height:auto;border-radius:14px}
+  .flight{margin:10px 0 0}
+  .house .win{fill:#0a1720;transition:fill .4s .2s}
+  .house.lit .win{fill:var(--gold)}
+  .neon{animation:neon 1.6s steps(1) infinite}
+  @keyframes neon{0%,82%,90%{opacity:1}86%,94%{opacity:.25}}
+  body.calm .neon{animation:none}
+  .counter .facade{display:block;width:100%;height:auto}
+  .grid{padding:12px;border-radius:14px;background:#13262f repeating-linear-gradient(90deg,#ffffff07 0 1px,transparent 1px 40px)}
   h2{font-size:1.3rem;margin:.2em 0 .5em}
   p{margin:.4em 0}
   .muted{color:var(--muted)}
@@ -53,7 +67,7 @@
   .counter .big{font-size:1.25rem;font-weight:700}
   .counter .shout{color:#ff4f9a;font-weight:800;font-size:1.15rem;animation:blink .8s steps(2) infinite}
   body.calm .counter .shout{animation:none}
-  @media (prefers-reduced-motion:reduce){.counter .shout{animation:none}}
+  @media (prefers-reduced-motion:reduce){.counter .shout,.neon{animation:none}.house .win{transition:none}}
   @keyframes blink{50%{opacity:.35}}
   .counter[disabled]{opacity:.4;cursor:not-allowed}
   .counter.picked{border-color:var(--gold)}
@@ -74,12 +88,12 @@
   .stats div{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #ffffff18}
   .ending{font-size:1.7rem;color:var(--gold);margin:.2em 0}
   .overlay{position:fixed;inset:0;background:#000c;display:flex;align-items:center;justify-content:center;z-index:9}
-  @media (max-width:400px){.primary{padding:.6em .9em}.actions{gap:8px}h1{font-size:1.8rem}}
+  @media (max-width:400px){.primary{padding:.6em .9em}.actions{gap:8px}h1{font-size:2.1rem}.grid{padding:8px}}
 </style>
 </head>
 <body>
 <main id="app" aria-live="polite"></main>
 <noscript>Send Home needs JavaScript.</noscript>
-<script type="module" src="game.js?v=5"></script>
+<script type="module" src="game.js?v=6"></script>
 </body>
 </html>

@@ -1,7 +1,8 @@
 // Send Home: the screens. The money lives in econ.js, the words in i18n.js, the settings in a11y.js.
-import * as E from './econ.js?v=5';
-import * as A from './a11y.js?v=5';
-import * as I from './i18n.js?v=5';
+import * as E from './econ.js?v=6';
+import * as A from './a11y.js?v=6';
+import * as I from './i18n.js?v=6';
+import * as Art from './art.js?v=6';
 
 const params = new URLSearchParams(location.search);
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -16,6 +17,14 @@ let run, mid, screen, st; // st = this payday's street visit
 const T = (k, v) => A.plain(I.t(k, lang, v), S, lang);
 const money = x => I.aed(x, lang);
 const homeMoney = aedEq => I.home(aedEq * mid, corridor);
+const moving = () => !S.calm && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+const fly = () => { const m = moving() && app.querySelector('#fly'); if (m) { m.beginElement(); setTimeout(() => SND.coin(), 1700); } };
+// Count a receipt number up to its value; calm mode and reduced motion show it at once.
+function countUp(el, to, fmt) {
+  if (!el || !moving()) return;
+  const f = Art.countFrames(to, 24);
+  f.forEach((x, i) => setTimeout(() => { el.textContent = fmt(x); if (i % 4 === 0) SND.tick(); }, i * 30));
+}
 
 // ---------- sound: tiny WebAudio blips, nothing downloaded ----------
 let ac;
@@ -50,7 +59,7 @@ const settingsChips = () => A.KEYS.map(k => `<button class="chip" data-a11y="${k
 function title() {
   screen = 'title';
   const c = I.CORRIDORS[corridor];
-  app.innerHTML = `<h1>${T('title')}</h1>
+  app.innerHTML = `<div class="hero">${Art.scene()}</div><h1>${T('title')}</h1>
     <p>${T('pitch', { home: c[lang] })}</p>
     <div class="panel"><p>${T('how1')}</p><p>${T('how2')}</p><p>${T('how3')}</p></div>
     <p class="muted">${T('homeIs')}</p>
@@ -58,6 +67,7 @@ function title() {
     <div class="row" style="margin-top:8px"><button class="chip" data-lang="en" aria-pressed="${lang === 'en'}">English</button><button class="chip" data-lang="ar" aria-pressed="${lang === 'ar'}">العربية</button></div>
     <p class="muted">${T('settings')}</p><div class="row">${settingsChips()}</div>
     <div class="actions"><button class="primary" data-act="start">${T('start')}</button></div>`;
+  fly();
 }
 
 // ---------- payday: the split ----------
@@ -119,7 +129,7 @@ function counterCard(c) {
   const tag = c.loud ? `<span class="shout">${T('zeroFee')}</span>` : c.promo ? `<span class="shout">${T('feeWaived')}</span>` : '';
   const qline = !open ? T('closed') : c.kind === 'app' && !run.appReady ? T('setup', { m: q }) : c.kind === 'informal' ? T('noReceipt') : q ? T('queue', { m: q }) : T('noQueue');
   return `<button class="counter" data-kind="${c.kind}" data-c="${c.kind}" ${open ? '' : 'disabled'}>
-    <span class="sign">${T('c_' + c.kind)}</span><span class="body">${tag}
+    ${Art.facade(c.kind)}<span class="sign">${T('c_' + c.kind)}</span><span class="body">${tag}
     <span>${T('fee')} <span class="big">${money(c.fee)}</span></span>
     <span>${T('rate')} <span class="big">${rate}</span> <span class="muted">${I.CORRIDORS[corridor].cur}</span></span>
     <span class="muted">${qline}</span></span></button>`;
@@ -166,7 +176,7 @@ function sendHere() {
   const best = formal.reduce((a, x) => (E.receive(amount, x, mid) > E.receive(amount, a, mid) ? x : a), formal[0]);
   const bestGot = E.receive(amount, best, mid);
   const r = E.send(run, c, amount, run.r(), mid);
-  screen = 'receipt';
+  screen = 'receipt'; st.sent = true; st.lost = !!r.lost;
   if (c.informal) {
     app.innerHTML = `${hud()}<div class="${r.lost ? 'lost' : 'panel'}"><p>${r.lost ? T('rInformalLost', { x: money(amount) }) : T('rInformalOk')}</p>
       ${r.lost ? '' : `<p>${T('rGets')}: <b>${I.home(r.received, corridor)}</b></p>`}<div class="actions"><button class="primary" data-act="news">${T('next')}</button></div></div>`;
@@ -186,7 +196,8 @@ function sendHere() {
     <p>${diff > 1 ? T('rBest', { x: I.home(diff, corridor) }) + ` (${T('c_' + best.kind)})` : T('rWasBest')}</p>
     <p class="muted" style="color:#556">${T('rGoal')} ${T('rReal', { home: I.CORRIDORS[corridor][lang], p: I.CORRIDORS[corridor].rpw })}</p></div>
     <div class="actions" style="justify-content:center"><button class="primary" data-act="news">${T('next')}</button></div>`;
-  SND.stamp(); setTimeout(() => (pct < 3 ? SND.good() : SND.bad()), 250);
+  countUp(app.querySelector('.gets span:last-child'), r.received, x => I.home(x, corridor));
+  SND.stamp(); setTimeout(() => (pct < 3 ? SND.good() : SND.bad()), 900);
 }
 
 // ---------- news from home, then the next payday ----------
@@ -197,8 +208,9 @@ function news() {
     ...out.missed.map(id => `<p class="alert">${T('needMissed', { need: name(id) })}</p>`),
     out.short ? `<p class="alert">${T('short', { x: homeMoney(out.short) })}</p>` : `<p>${T('fine')}</p>`].join('');
   screen = 'news';
-  app.innerHTML = `${hud()}<div class="panel"><h2>${T('homeNews')}</h2>${lines}<div class="actions"><button class="primary" data-act="next">${T('next')}</button></div></div>`;
+  app.innerHTML = `${hud()}${st.sent ? Art.flight(st.lost) : ''}<div class="panel"><h2>${T('homeNews')}</h2>${lines}<div class="actions"><button class="primary" data-act="next">${T('next')}</button></div></div>`;
   out.missed.length || out.short ? SND.bad() : SND.good();
+  fly();
 }
 
 function next() {
