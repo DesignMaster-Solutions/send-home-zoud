@@ -42,4 +42,6 @@ test('CONCEPT.md strategy table matches simulate()', () => {
   assert.ok(doc.includes(`Reading the board costs ${pct(best)}% of what was sent`), 'careful cost %');
   assert.ok(doc.includes(`ZERO FEE kiosk costs ${pct(zero)}%`), 'ZERO FEE cost %');
   assert.ok(doc.includes(`about ${(zero.costs / best.costs).toFixed(1)} times more`), 'ZERO FEE cost ratio');
+  const close = STR.clock[0].match(/\d\d:\d\d/)[0]; // the street clock the game shows
+  assert.ok(doc.includes(`close for Friday prayer at ${close}`), `CONCEPT.md gives the game's closing time ${close}`);
 });

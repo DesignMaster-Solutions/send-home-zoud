@@ -29,7 +29,7 @@ Send Home is a short strategy game about the money that leaves the UAE every pay
 **The loop.** Each payday has four short steps.
 
 1. **Payday.** AED 4,000 lands and AED 2,100 of rent share, food and transport go first. A message from home says what the family lives on each month and what is coming: school fees by payday 3, the roof before the rains by payday 6, a cousin's wedding gift by payday 9, a father's hospital bill by payday 11. One slider splits the money you hold between "Send home now" and "Keep as cushion".
-2. **The street.** You arrive at 12:45 and the counters close for Friday prayer at 13:15. Up to six fictional counters show their fee, their rate and their queue: a bank, two exchange houses, a loud kiosk shouting ZERO FEE!, an app from payday 4 that needs a 15-minute ID check the first time, and from payday 2 a friend of a friend on the phone offering cash at a better rate with no receipt. Every day one counter waives its fee and quietly worsens its rate. The cheapest counter usually has the longest queue, and a counter whose queue is longer than the time left closes in front of you. Asking for a quote costs 2 minutes and answers the only question that matters: "For AED 1,000, your family receives...".
+2. **The street.** You arrive at 12:15 and the counters close for Friday prayer at 12:45. Up to six fictional counters show their fee, their rate and their queue: a bank, two exchange houses, a loud kiosk shouting ZERO FEE!, an app from payday 4 that needs a 15-minute ID check the first time, and from payday 2 a friend of a friend on the phone offering cash at a better rate with no receipt. Every day one counter waives its fee and quietly worsens its rate. The cheapest counter usually has the longest queue, and a counter whose queue is longer than the time left closes in front of you. Asking for a quote costs 2 minutes and answers the only question that matters: "For AED 1,000, your family receives...".
 3. **The receipt.** What you paid, the fee, their rate against the mid-market rate, the cost hidden in the rate, the total cost in dirhams and in percent, what your family receives, and how much more the best counter on the street would have delivered that day. Next to it, the UN goal for 2030 (under 3%) and the real average from the UAE to your family's country.
 4. **News from home.** The need that was due is paid ("They sent a photo") or missed, and the family either had what it needed this month or went short.
 
@@ -38,7 +38,7 @@ Send Home is a short strategy game about the money that leaves the UAE every pay
 | | | |
 |-----------------------|-----------------------|-----------------------|
 | ![Payday: salary, bills, a message from home and the slider](shots/m1-payday-redmi.png) | ![The street: four counters with fee, rate and queue, and the clock](shots/m1-street-redmi.png) | ![Receipt: fee, hidden margin, total cost and what the family receives](shots/m1-receipt-redmi.png) |
-| Payday: split the salary | The street, 12:47 | The receipt |
+| Payday: split the salary | The street | The receipt |
 
 **Decisions and progress.** Which counter, and is its queue worth the minutes? Send now or wait and pay the fee once? Send everything or keep a cushion for the month the salary is late? The year builds: the roof costs more than the school fees, the hospital bill comes with one payday of warning, and the app and the phone offer join the street. Four endings: "Home is safe, and so are you", "Everything reached home", "You kept standing" and "A hard year". The year closes with a summary in money: what reached home, what was lost to fees and rates, what was lost with no receipt, what salary advances cost, and the needs that were paid.
 
@@ -57,7 +57,7 @@ There is no lesson screen. Three lines before the year starts, and after that ev
 | Emergency fund | Trouble here is paid from the cushion, or borrowed at a 10% charge | Sending everything feels generous until the month the salary is late |
 | Licensed channels and receipts | The phone offer has a better rate, no receipt, and a 1 in 5 chance that the money never arrives (a game rule, not a statistic) | "The number does not answer any more", and there is nothing to claim |
 | Planning to a deadline | Needs arrive with a due payday. Money left sitting at home partly gets spent on everyday things | Sending what is needed, when it is needed, beats sending early |
-| Time costs money | Queues, the 2-minute quote and the 13:15 close | The cheapest counter is not always reachable |
+| Time costs money | Queues, the 2-minute quote and the 12:45 close | The cheapest counter is not always reachable |
 
 **The outcome rewards the habit, not one lucky choice.** Six ways to play, each played by a robot for 300 seeded years with the game's own money model (`simulate` in `econ.js`, family in the base corridor, build of 4 November 2026). Amounts in AED over the year.
 
@@ -84,7 +84,7 @@ Each lesson maps to something a person can do on the next payday: ask for "how m
 
 **Accuracy.** The real-world numbers on screen come from public sources listed in the README: the World Bank's Remittance Prices Worldwide for the average cost of sending AED 735 from the UAE in early 2025 (India 3.68%, Pakistan 1.42%, the Philippines 3.04%), the UN's SDG target 10.c for the 3% goal, and mid-market rates fixed on 4 November 2026. The salary, bills, family needs, counters, fees and margins are game values, set so that the bank costs more than the exchange houses, as it does in the World Bank data (AED 735 to India: banks 8.02%, transfer operators 2.81%). The 1 in 5 risk of the phone offer, the 10% advance charge and the share of money spent at home are game rules and say so in the code. The counters and the app are fictional: no real company is named or rated, and the game is not financial advice.
 
-**UAE and Arabic edition, built during the jam.** The whole game runs in Arabic, right to left, and in English. Money is in dirhams for the player and in rupees or pesos for the family. Amounts use Latin digits in both languages, so a receipt reads the same in either. The clock is the UAE's unified Friday prayer time, 13:15.
+**UAE and Arabic edition, built during the jam.** The whole game runs in Arabic, right to left, and in English. Money is in dirhams for the player and in rupees or pesos for the family. Amounts use Latin digits in both languages, so a receipt reads the same in either. The clock is the UAE's unified Friday prayer time, 12:45 since 2 January 2026.
 
 ## 4. Visual Style & Player Experience
 
@@ -97,7 +97,7 @@ Each lesson maps to something a person can do on the next payday: ask for "how m
 
 **Setting and tone.** Warm and fair. The player has no name, gender or nationality, so the year can be anyone's. Nobody is mocked for the choice they made, and the endings say what happened and what would change it.
 
-**Sound.** Short synthesized sounds (WebAudio, no audio files): a coin when money leaves, a tick in the last 5 minutes before 13:15, a stamp on the receipt. Every sound has a visual twin, so the game never depends on it.
+**Sound.** Short synthesized sounds (WebAudio, no audio files): a coin when money leaves, a tick in the last 5 minutes before 12:45, a stamp on the receipt. Every sound has a visual twin, so the game never depends on it.
 
 **Interface.** One line at the top shows the payday, the cushion and what is at home in the family's currency. Counters differ by name, colour and text, not only by colour.
 
