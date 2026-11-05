@@ -1,8 +1,8 @@
 // Send Home: the screens. The money lives in econ.js, the words in i18n.js, the settings in a11y.js.
-import * as E from './econ.js?v=19';
-import * as A from './a11y.js?v=19';
-import * as I from './i18n.js?v=19';
-import * as Art from './art.js?v=19';
+import * as E from './econ.js?v=20';
+import * as A from './a11y.js?v=20';
+import * as I from './i18n.js?v=20';
+import * as Art from './art.js?v=20';
 
 const params = new URLSearchParams(location.search);
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -118,7 +118,7 @@ function paydayScreen() {
     <div class="panel ledger">${ledger}${evs}</div>
     <div class="panel"><p class="muted">${T('msgFrom')}</p><div class="msg">${T('monthly', { x: homeMoney(E.FAMILY_MONTHLY) })}</div>${msgs}</div>
     <div class="panel"><div class="split"><span>${T('sendNow')}: <span id="sv">${money(st.amount)}</span></span><span class="muted">${T('keep')}: <span id="kv">${money(run.reserve - st.amount)}</span></span></div>
-    <div class="row"><button class="chip" data-amt="${enoughNow()}">${T('amtEnough', { x: money(enoughNow()) })}</button><button class="chip" data-amt="${Math.floor(run.reserve / 10) * 10}">${T('amtAll', { x: money(Math.floor(run.reserve / 10) * 10) })}</button></div>
+    <div class="row amts"><button class="chip" data-amt="${enoughNow()}">${T('amtEnough', { x: money(enoughNow()) })}</button><button class="chip" data-amt="${Math.floor(run.reserve / 10) * 10}">${T('amtAll', { x: money(Math.floor(run.reserve / 10) * 10) })}</button></div>
     <input type="range" id="amt" min="0" max="${Math.floor(run.reserve / 10) * 10}" step="10" value="${Math.floor(st.amount / 10) * 10}" aria-label="${T('sendNow')}">
     <div class="actions"><button class="primary" data-act="street">${T('toStreet')}</button><button class="link" data-act="skip">${T('keepAll')}</button></div></div>`;
   app.querySelector('#amt').addEventListener('input', e => setAmount(+e.target.value));
