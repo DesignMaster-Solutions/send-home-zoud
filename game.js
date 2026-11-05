@@ -1,8 +1,8 @@
 // Send Home: the screens. The money lives in econ.js, the words in i18n.js, the settings in a11y.js.
-import * as E from './econ.js?v=14';
-import * as A from './a11y.js?v=14';
-import * as I from './i18n.js?v=14';
-import * as Art from './art.js?v=14';
+import * as E from './econ.js?v=15';
+import * as A from './a11y.js?v=15';
+import * as I from './i18n.js?v=15';
+import * as Art from './art.js?v=15';
 
 const params = new URLSearchParams(location.search);
 function load(k) { try { return localStorage.getItem(k); } catch { return null; } }
@@ -93,19 +93,26 @@ function paydayScreen() {
   ].join('');
   const evs = events.map(e => `<p class="alert">${T('em_' + e.id)}: ${money(e.aed)}. ${e.borrowed ? T('borrowed', { x: money(e.borrowed), c: money(e.charge) }) : T('paidCushion')}</p>`).join('');
   const open = E.NEEDS.filter(n => n.told <= run.p && n.due >= run.p);
-  const msgs = open.map(n => `<div class="msg ${n.told === run.p ? 'new' : ''}"><b>${T('need_' + n.id)}</b>: ${homeMoney(n.aed)}
+  const msgs = open.map(n => `<div class="msg ${n.told === run.p ? 'new' : ''}"><b>${T('need_' + n.id)}</b>: ${homeMoney(n.aed)} (≈ ${money(n.aed)})
     · ${n.due === run.p ? T('dueNow') : T('dueOn', { n: n.due })}</div>`).join('');
   app.innerHTML = `${hud()}
     <div class="panel ledger">${ledger}${evs}</div>
     <div class="panel"><p class="muted">${T('msgFrom')}</p><div class="msg">${T('monthly', { x: homeMoney(E.FAMILY_MONTHLY) })}</div>${msgs}</div>
     <div class="panel"><div class="split"><span>${T('sendNow')}: <span id="sv">${money(st.amount)}</span></span><span class="muted">${T('keep')}: <span id="kv">${money(run.reserve - st.amount)}</span></span></div>
+    <div class="row"><button class="chip" data-amt="${enoughNow()}">${T('amtEnough', { x: money(enoughNow()) })}</button><button class="chip" data-amt="${Math.floor(run.reserve / 10) * 10}">${T('amtAll', { x: money(Math.floor(run.reserve / 10) * 10) })}</button></div>
     <input type="range" id="amt" min="0" max="${Math.floor(run.reserve / 10) * 10}" step="10" value="${Math.floor(st.amount / 10) * 10}" aria-label="${T('sendNow')}">
     <div class="actions"><button class="primary" data-act="street">${T('toStreet')}</button><button class="link" data-act="skip">${T('keepAll')}</button></div></div>`;
-  app.querySelector('#amt').addEventListener('input', e => {
-    st.amount = +e.target.value;
-    app.querySelector('#sv').textContent = money(st.amount);
-    app.querySelector('#kv').textContent = money(run.reserve - st.amount);
-  });
+  app.querySelector('#amt').addEventListener('input', e => setAmount(+e.target.value));
+}
+function setAmount(x) {
+  st.amount = x; app.querySelector('#amt').value = x;
+  app.querySelector('#sv').textContent = money(st.amount);
+  app.querySelector('#kv').textContent = money(run.reserve - st.amount);
+}
+// What home needs this payday (the month plus any need due now), with room for a typical transfer cost.
+function enoughNow() {
+  const due = E.NEEDS.filter(n => n.due === run.p).reduce((t, n) => t + n.aed, 0);
+  return Math.min(Math.floor(run.reserve / 10) * 10, Math.ceil((Math.max(0, E.FAMILY_MONTHLY + due - run.pot) * 1.04 + 30) / 10) * 10);
 }
 
 // ---------- the street of counters ----------
@@ -132,7 +139,7 @@ function counterCard(c) {
   const q = effQueue(c), open = noClock() || E.isOpen({ queue: q }, st.minutes);
   const rate = (mid * (1 - c.margin)).toFixed(2);
   const tag = c.loud ? `<span class="shout">${T('zeroFee')}</span>` : c.promo ? `<span class="shout">${T('feeWaived')}</span>` : '';
-  const qline = !open ? T('closed') : c.kind === 'app' && !run.appReady ? T('setup', { m: q }) : c.kind === 'informal' ? T('noReceipt') : q ? T('queue', { m: q }) : T('noQueue');
+  const qline = !open ? T('closed') : c.kind === 'app' && !run.appReady ? T('setup', { m: q }) : c.kind === 'informal' ? T('noReceipt') : q && !noClock() && q > st.minutes - 4 ? T('closingSoon', { m: q }) : q ? T('queue', { m: q }) : T('noQueue');
   return `<button class="counter" data-kind="${c.kind}" data-c="${c.kind}" ${open ? '' : 'disabled'}>
     ${Art.facade(c.kind)}<span class="sign">${cname(c)}</span><span class="body">${tag}
     <span>${T('fee')} <span class="big">${money(c.fee)}</span></span>
@@ -252,6 +259,7 @@ app.addEventListener('click', e => {
   if (b.dataset.lang) { lang = b.dataset.lang; save(I.STORAGE_KEY, lang); applySettings(); return rerender(); }
   if (b.dataset.home) { corridor = b.dataset.home; save('sendhome.home', corridor); return title(); }
   if (b.dataset.c) return ask(b.dataset.c);
+  if (b.dataset.amt) { SND.tap(); return setAmount(+b.dataset.amt); }
   const act = b.dataset.act;
   if (act === 'start' || act === 'again') return newGame();
   if (act === 'street') return st.amount > 0 ? goStreet() : news();
@@ -289,10 +297,9 @@ function autoStep() {
     : sc === 'receipt' && st.lost ? 'cap_lost' : sc === 'street' && risky && p === 5 ? 'cap_phone' : '');
   if (sc === 'title') return later(2500, () => click('[data-act=start]'));
   if (sc === 'payday') {
-    const due = E.NEEDS.filter(n => n.due === run.p).reduce((t, n) => t + n.aed, 0);
-    const want = Math.min(run.reserve, Math.ceil((Math.max(0, E.FAMILY_MONTHLY + due - run.pot) * 1.04 + 30) / 50) * 50);
+    const want = enoughNow();
     return later(1800, () => {
-      const r = app.querySelector('#amt'); r.value = want; r.dispatchEvent(new Event('input'));
+      click('[data-amt="' + want + '"]');
       later(1800, () => click(want > 0 ? '[data-act=street]' : '[data-act=skip]'));
     });
   }

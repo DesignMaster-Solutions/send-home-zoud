@@ -10,6 +10,11 @@ browse $D click --text "Start the year" >/dev/null
 browse $D wait --text "Payday 1 of 12" 10 >/dev/null || fail "payday"
 W=$(browse $D js 'return Math.max(...[...document.querySelectorAll(".actions")].map(a => a.scrollWidth - a.clientWidth))')
 [[ $W -le 0 ]] || fail "payday action row overflows by ${W}px"
+# the amount buttons set the slider (a playtester never found the slider on its own)
+browse $D click "[data-amt]" >/dev/null || fail "no amount buttons"
+[[ $(browse $D js 'return document.querySelector("#amt").value === document.querySelector("[data-amt]").dataset.amt ? 1 : 0') == 1 ]] || fail "Enough did not set the slider"
+W=$(browse $D js 'const r = document.querySelector("[data-amt]").parentElement; return r.offsetHeight > 2 * r.firstElementChild.offsetHeight ? 99 : 0')
+[[ $W -le 0 ]] || fail "amount buttons wrap to a second line"
 browse $D click --text "Go to the street" >/dev/null
 browse $D wait --text "Mid-market rate today" 10 >/dev/null || fail "street"
 [[ $(browse $D js 'return document.querySelectorAll(".counter").length') -ge 4 ]] || fail "counters"
