@@ -32,9 +32,9 @@ Twelve paydays make one run (about 8 minutes). The ending depends on what reache
 ## Required for the development funding (jam page)
 
 1. The game, playable in the browser, on an itch.io page submitted to the jam.
-2. Concept doc / initial game design document (official 6-section template, PDF).
+2. Concept doc / initial game design document (official 6-section template, PDF): [docs/CONCEPT.pdf](docs/CONCEPT.pdf), from [docs/CONCEPT.md](docs/CONCEPT.md); `docs/pdf.sh` rebuilds both PDFs and `tests/concept.test.mjs` fails if its strategy table drifts from `econ.js`.
 3. 2-minute video of actual gameplay of the submitted build.
-4. Game budget.
+4. Game budget: [docs/BUDGET.pdf](docs/BUDGET.pdf), from [docs/BUDGET.md](docs/BUDGET.md).
 5. AI use disclosed in the submission form.
 
 ## Facts and sources
@@ -47,6 +47,7 @@ Every real-world number the game shows comes from a public source listed here. C
 | UAE banks cost more than money transfer operators (AED 735 to India: banks 8.02%, operators 2.81%) | used to set the game's bank fee | same dataset |
 | UN goal: remittance costs under 3% by 2030 | SDG target 10.c: "By 2030, reduce to less than 3 per cent the transaction costs of migrant remittances and eliminate remittance corridors with costs higher than 5 per cent." | [UN SDG indicator metadata 10.c.1](https://unstats.un.org/sdgs/metadata/files/Metadata-10-0c-01.pdf) |
 | Global average cost of sending USD 200: 6.36% (Q3 2025) | for the concept doc | [RPW Issue 54](https://remittanceprices.worldbank.org/sites/default/files/2026-04/RPW_main_report_and_annex_Q325.pdf) |
+| Average total cost of sending AED 735 from the UAE to Bangladesh, Q1 2025: 6.22% (above the 5% of SDG 10.c); the dataset covers 12 destinations from the UAE | for the concept doc | same RPW dataset, our parse in [docs/rpw-uae-q1-2025.txt](docs/rpw-uae-q1-2025.txt) |
 | Personal remittances paid from the UAE: USD 62.1 billion in 2025 | for the concept doc | [World Bank WDI, BM.TRF.PWKR.CD.DT](https://data.worldbank.org/indicator/BM.TRF.PWKR.CD.DT?locations=AE) |
 | Mid-market rate, 1 AED = 25.82 INR, 75.36 PKR, 17.30 PHP | fixed for the game on 04/11/2026 | [open.er-api.com/v6/latest/AED](https://open.er-api.com/v6/latest/AED) (aggregator, not a central bank) |
 | The counters close for Friday prayer at 12:45 | the street clock (you arrive at 12:15) | UAE unified Friday prayer time since 2 January 2026, set by the General Authority of Islamic Affairs, Endowments and Zakat (it was 13:15 from 2022 to 2025): [The National, 10/12/2025](https://www.thenationalnews.com/news/uae/2025/12/10/uae-friday-prayers-timing-change-2026/) |
